@@ -1,0 +1,43 @@
+@media screen and (max-width: 1280px) {
+    .behindNavs{
+        z-index: -1;
+        position:fixed;
+        height: 100vh;
+        width: 133px;
+        top:0;
+        border-radius: 0% !important;
+    }
+    section{
+        width: 70%;
+    }
+    .secLeftGrow{
+        width:85%;
+        margin-left:12px;
+    }
+    .secRightGrow{
+        width:85%;
+        margin-right:12px;
+    }
+    .secLeftGrow.secRightGrow{
+        width:95%;
+    }
+    .optionBox{
+        padding: 16px 0px;
+        /* padding-bottom: 12px; */
+        /* border: none; */
+        border-color: black;
+        border-right: none;
+        border-left: none;
+
+    }
+    .optionInnerBox{
+        border: none;
+        border-radius: 0%;
+
+    }
+    .optionInput{
+        text-align:left;
+        padding-left: 24px;
+    }
+    
+}
