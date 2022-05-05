@@ -190,7 +190,7 @@ function outputTableNew(output,tabin){
          tDiv.append(crossDiv);
          crossDiv.id = "crossDiv";
           let cross = document.createElement("img");
-          cross.src = "Assets/graphics/cross 00.png";
+          cross.src = "assets/graphics/cross 00.png";
 
           crossDiv.append(cross);
           cross.className = "exitBtn";
@@ -213,7 +213,7 @@ function outputTableNew(output,tabin){
 
          // Refresh button
          let btn1 = document.createElement("img");
-         btn1.src="Assets/graphics/refresh 00.png";
+         btn1.src="assets/graphics/refresh 00.png";
          btn1.id=`refreshBtn${windows}`;
          btn1.addEventListener("click",(e)=>{
              let tab = refreshTable(e.target.id,2);
@@ -222,7 +222,7 @@ function outputTableNew(output,tabin){
 
          // Play button
          let btn2 = document.createElement("img");
-         btn2.src="Assets/graphics/play 00.png";
+         btn2.src="assets/graphics/play 00.png";
          btn2.id=`playBtn${windows}`;
          btn2.addEventListener("click",(e)=>{
              // Gets the hidden tab info
@@ -240,7 +240,7 @@ function outputTableNew(output,tabin){
 
          // Push button
          let btn3 = document.createElement("img");
-         btn3.src="Assets/graphics/arrow 01.png";
+         btn3.src="assets/graphics/arrow 01.png";
          btn3.id=`pushBtn${windows}`;
          btn3.className="tabTempPushBtn";
          btn3.addEventListener("click",()=>{
