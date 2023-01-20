@@ -1,4 +1,12 @@
 header {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
   background-color: #2b2b2b;
   color: #ff9100;
+}
+header .volumeDiv {
+  display: flex;
+  width: 256px;
+  align-items: center;
 }/*# sourceMappingURL=Header.css.map */

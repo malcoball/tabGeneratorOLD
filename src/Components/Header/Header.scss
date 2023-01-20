@@ -1,6 +1,13 @@
 @import '../../variables';
 
 header{
+    padding: 16px;
+    display: flex; justify-content: space-between;
     background-color: $bgCol1;
     color: $col1;
+    .volumeDiv{
+        display: flex;
+        width: 256px;
+        align-items: center;
+    }
 }

@@ -1,0 +1,9 @@
+.TabDisplaySml{
+    border: 1px solid yellow;
+    .tabRow{
+        display:flex;
+        .tabItem{
+            width:64px;
+        }
+    }
+}

@@ -1,0 +1,9 @@
+.TabDisplaySml {
+  border: 1px solid yellow;
+}
+.TabDisplaySml .tabRow {
+  display: flex;
+}
+.TabDisplaySml .tabRow .tabItem {
+  width: 64px;
+}/*# sourceMappingURL=TabDisplaySml.css.map */
