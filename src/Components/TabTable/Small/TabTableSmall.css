@@ -1,0 +1,22 @@
+.tabTableSmall {
+  outline: 1px solid black;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+.tabTableSmall .mainContent {
+  display: flex;
+  flex-direction: row;
+}
+.tabTableSmall .mainContent .tableLeft div:nth-of-type(1) {
+  background-color: red;
+}
+.tabTableSmall .mainContent .tableLeft div:nth-of-type(1) span:nth-of-type(1) {
+  transform: rotate(180deg);
+}
+.tabTableSmall .mainContent .tableRight {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 0 12px;
+}/*# sourceMappingURL=TabTableSmall.css.map */

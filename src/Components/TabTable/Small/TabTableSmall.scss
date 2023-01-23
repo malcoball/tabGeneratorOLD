@@ -1,0 +1,19 @@
+.tabTableSmall{
+    outline: 1px solid black;
+    width: max-content;
+    .mainContent{
+        display:flex; flex-direction: row;
+        .tableLeft{
+            div:nth-of-type(1){
+                background-color: red;
+                span:nth-of-type(1){
+                    transform: rotate(180deg);
+                }
+            }
+        }
+        .tableRight{
+            display:flex; flex-direction: column; justify-content: space-evenly;
+            padding: 0 12px;
+        }
+    }
+}

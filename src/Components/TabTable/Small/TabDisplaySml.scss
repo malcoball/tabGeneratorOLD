@@ -1,9 +1,15 @@
 .TabDisplaySml{
     border: 1px solid yellow;
+    display:flex; flex-direction: row;
+    width:max-content;
+    font-size: 1.2em;
     .tabRow{
-        display:flex;
+        display:flex; flex-direction: column-reverse;
         .tabItem{
-            width:64px;
+            width:32px;
+        }
+        .marker1{
+            opacity: 0.25;
         }
     }
 }

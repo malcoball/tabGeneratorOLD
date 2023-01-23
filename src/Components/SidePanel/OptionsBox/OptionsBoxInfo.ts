@@ -26,14 +26,16 @@ class DropDown{
     }
 }
 const pushBtn = new Button("Push to tab",()=>{console.log("push pls")},'Push Button');
-const tabLength = new Slider(6,0,12,'Tab Length');
-const rootNote = new Slider(7,0,24,'Root Note');
-const longestNote = new Slider(4,1,8,'Longest Note');
-const bpm = new Slider(150,0,250, 'BPM');
-const distortion = new Slider (0,0,10,'Distortion');
-const tabType = new DropDown(['bass','guitar'],'Tab Type');
-const scale = new DropDown(['aeolian','blues'],'Scale');
-const instrument = new DropDown(['bass1','bass2'],'Instrument');
+
+const tabLength     = new Slider(6,0,12,'Tab Length');
+const rootNote      = new Slider(7,0,24,'Root Note');
+const longestNote   = new Slider(4,1,8,'Longest Note');
+const bpm           = new Slider(150,0,250, 'BPM');
+const distortion    = new Slider (0,0,10,'Distortion');
+
+const tabType       = new DropDown(['bass','guitar'],'Tab Type');
+const scale         = new DropDown(['aeolian','blues'],'Scale');
+const instrument    = new DropDown(['bass1','bass2'],'Instrument');
 
 const OptionsBoxInfo = {
     buttons : [pushBtn],
