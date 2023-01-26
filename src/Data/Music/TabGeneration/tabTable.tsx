@@ -1,6 +1,3 @@
-import { useState } from "react"
-import './TabDisplaySml.css';
-import instruments from "../../../Data/Music/Instruments";
 const tabItem = (int:number)=>{
     // Turns a single number into an li, anything below 0 becomes "-"
     let data = int < 0 ? "-" : int
@@ -54,14 +51,4 @@ const lineToMulti = (dataIn:number[],breakPoints:number[])=>{
     });
     return out;
 }
-const TabDisplaySml = (props:any)=>{
-    const [data,setData] = useState(props.tabIn)
-    const [instrument,setInstrument] = useState(instruments(props.instrument));
-    const row = tabTable(lineToMulti(data,instrument.breakPoints),instrument.stringNames);
-    return(
-        <div className="TabDisplaySml">
-            {row}
-        </div>
-    )
-}
-export default TabDisplaySml;
+export {tabTable,lineToMulti};

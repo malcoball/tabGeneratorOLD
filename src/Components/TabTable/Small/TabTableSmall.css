@@ -4,12 +4,24 @@
   width: -moz-max-content;
   width: max-content;
 }
+.tabTableSmall span {
+  cursor: pointer;
+}
+.tabTableSmall .topDiv {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.tabTableSmall .topDiv input {
+  border: 0px;
+  text-align: right;
+}
 .tabTableSmall .mainContent {
   display: flex;
   flex-direction: row;
 }
-.tabTableSmall .mainContent .tableLeft div:nth-of-type(1) {
-  background-color: red;
+.tabTableSmall .mainContent .tableLeft div:nth-of-type(1) span {
+  padding: 0 4px;
 }
 .tabTableSmall .mainContent .tableLeft div:nth-of-type(1) span:nth-of-type(1) {
   transform: rotate(180deg);

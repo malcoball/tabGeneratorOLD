@@ -1,3 +1,4 @@
+import { scales } from "../../../Data/Music/TabGeneration/scale";
 class Button{
     text : string
     func : Function
@@ -25,17 +26,22 @@ class DropDown{
         this.name = name;
     }
 }
-const pushBtn = new Button("Push to tab",()=>{console.log("push pls")},'Push Button');
+const pushBtn = new Button("Push to tab",()=>{console.log("push pls")},'pushButton');
 
-const tabLength     = new Slider(6,0,12,'Tab Length');
-const rootNote      = new Slider(7,0,24,'Root Note');
-const longestNote   = new Slider(4,1,8,'Longest Note');
-const bpm           = new Slider(150,0,250, 'BPM');
-const distortion    = new Slider (0,0,10,'Distortion');
+const tabLength     = new Slider(6,0,12,'tabLength');
+const rootNote      = new Slider(7,0,24,'rootNote');
+const longestNote   = new Slider(4,1,8,'longestNote');
+const bpm           = new Slider(150,0,250, 'bpm');
+const distortion    = new Slider (0,0,10,'distortion');
 
-const tabType       = new DropDown(['bass','guitar'],'Tab Type');
-const scale         = new DropDown(['aeolian','blues'],'Scale');
-const instrument    = new DropDown(['bass1','bass2'],'Instrument');
+const tabType       = new DropDown(['bass','guitar'],'tabType');
+// const scale         = new DropDown(['aeolian','blues'],'scale');
+const scale         = new DropDown([],'scale');
+scales.forEach(elm => {
+    scale.list.push(elm.name);
+    console.log(elm.name);
+});
+const instrument    = new DropDown(['bass1','bass2'],'instrument');
 
 const OptionsBoxInfo = {
     buttons : [pushBtn],

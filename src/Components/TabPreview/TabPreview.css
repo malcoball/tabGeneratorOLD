@@ -1,3 +1,9 @@
 .tabPreview {
   text-align: center;
+}
+.tabPreview .tabSmallCont {
+  display: grid;
+  grid-template-columns: repeat(3, 33%);
+  grid-template-rows: auto;
+  justify-content: center;
 }/*# sourceMappingURL=TabPreview.css.map */

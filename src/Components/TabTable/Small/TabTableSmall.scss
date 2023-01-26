@@ -1,11 +1,24 @@
 .tabTableSmall{
     outline: 1px solid black;
     width: max-content;
+    span{
+        cursor: pointer;
+    }
+    .topDiv{
+        width:100%;
+        display:flex; justify-content: flex-end;
+        input{
+            border:0px;
+            text-align: right;
+        }
+    }
     .mainContent{
         display:flex; flex-direction: row;
         .tableLeft{
             div:nth-of-type(1){
-                background-color: red;
+                span{
+                    padding:0 4px;
+                }
                 span:nth-of-type(1){
                     transform: rotate(180deg);
                 }
