@@ -11,8 +11,7 @@ const Header = (props:any)=>{
             <h1>{title}</h1>
             <div className='volumeDiv'>
                 <img src={Images.ui.audio.speaker.off} alt="dwn"/>
-                <Slider
-                />
+                <Slider/>
                 <img src={Images.ui.audio.speaker.on} alt="up"/>
             </div>
         </header>

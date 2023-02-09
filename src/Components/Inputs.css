@@ -2,7 +2,6 @@
   border-bottom: 2px solid rgba(0, 0, 0, 0.25);
   background-color: #6b5537;
   width: 162px;
-  height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
 }
@@ -41,10 +40,16 @@
 .sliderCustom .sliderCont .valueCont {
   height: 100%;
 }
-.sliderCustom .sliderCont .valueCont p {
+.sliderCustom .sliderCont .valueCont input {
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  width: 100%;
   text-align: center;
   position: relative;
   top: 4px;
+}
+.sliderCustom .sliderCont .valueCont input:focus {
+  outline: none;
 }
 .sliderCustom .sliderCont #sliderId {
   padding: 0px;

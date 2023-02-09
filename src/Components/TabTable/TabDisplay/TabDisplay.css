@@ -1,20 +1,26 @@
-.TabDisplaySml {
+.TabDisplay {
   display: flex;
   flex-direction: row;
   text-align: center;
-  width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
   font-size: 1.2em;
   margin: 8px;
 }
-.TabDisplaySml .tabRow {
+.TabDisplay .tabRow {
   display: flex;
   flex-direction: column-reverse;
 }
-.TabDisplaySml .tabRow .tabItem {
+.TabDisplay .tabRow .tabItem {
   width: 32px;
 }
-.TabDisplaySml .tabRow .marker1 {
+.TabDisplay .tabRow .marker1 {
   opacity: 0.25;
+}
+.TabDisplay .tabRow .marker2 {
+  opacity: 0.25;
+}
+
+.active {
+  color: red !important;
 }/*# sourceMappingURL=TabDisplay.css.map */

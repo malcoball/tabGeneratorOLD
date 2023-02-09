@@ -1,4 +1,4 @@
-.TabDisplaySml{
+.TabDisplay{
     display:flex; flex-direction: row;
     text-align: center;
     width:max-content;
@@ -12,5 +12,11 @@
         .marker1{
             opacity: 0.25;
         }
+        .marker2{
+            opacity: 0.25;
+        }
     }
+}
+.active{
+    color: red !important;
 }

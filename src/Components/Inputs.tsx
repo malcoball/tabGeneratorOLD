@@ -71,13 +71,23 @@ export const SliderCustom = (props:any)=>{
         let settingsNew = {...props.settings,[info.name]:value[0]}
         props.update(settingsNew);
     }
+    const textChange = (inp:any)=>{
+        let valueNew = [...value];
+        valueNew[0] = inp.target.value;
+        if (valueNew[0] < info.valueMin) valueNew[0] = info.valueMin;
+        if (valueNew[0] > info.valueMax) valueNew[0] = info.valueMax;
+        setValue(valueNew);
+    }
 
     return (
         <div className='sliderCustom inputWindow'>
             <h5 className='inputTitle'>{info.name}</h5>
             <div className='sliderCont widthSet inputBorder'>
                 <div className="valueCont">
-                    <p className='inputValue'>{value}</p>
+                    {/* <p className='inputValue'>{value}</p> */}
+                    <input  className='inputValue' 
+                            value={value[0]}
+                            onChange={(e)=>{textChange(e)}}/>
                 </div>
                 <Slider
                     id="sliderId"

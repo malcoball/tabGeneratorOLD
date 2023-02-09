@@ -9,4 +9,14 @@ header .volumeDiv {
   display: flex;
   width: 256px;
   align-items: center;
+}
+
+@media (max-width: 768px) {
+  header h1 {
+    width: 100%;
+    text-align: center;
+  }
+  header .volumeDiv {
+    display: none;
+  }
 }/*# sourceMappingURL=Header.css.map */

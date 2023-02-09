@@ -13,6 +13,7 @@ class instrument{
 new instrument("bass",[0,5,10,15],["E","A","D","G"],1);
 new instrument("guitar",[0,5,10,15,19,24],["E","A","D","G","B","e"],2);
 new instrument("banjo",[0,5,10,14,17],["G","D","G","B","d"],2);
+new instrument('mayo',[0,5],['T','B'],3);
 
 const getInstrument = (name:string): any=>{
     let out = null;

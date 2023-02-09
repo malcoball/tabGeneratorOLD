@@ -1,4 +1,5 @@
 import { scales } from "../../../Data/Music/TabGeneration/scale";
+import {synths} from '../../../Tone/synths';
 class Button{
     text : string
     func : Function
@@ -13,9 +14,11 @@ class Button{
 class Slider{
     value : number; valueMin : number; valueMax : number;
     name : string;
-    constructor(value:number,valueMin:number,valueMax:number,name:string){
+    scale : number;
+    constructor(value:number,valueMin:number,valueMax:number,name:string, scale:number){
         this.value = value; this.valueMin = valueMin; this.valueMax = valueMax;
         this.name = name;
+        this.scale = scale;
     }
 }
 class DropDown{
@@ -26,26 +29,28 @@ class DropDown{
         this.name = name;
     }
 }
-const pushBtn = new Button("Push to tab",()=>{console.log("push pls")},'pushButton');
+const pushBtn = new Button("New Tab",()=>{console.log("push pls")},'pushButton');
 
-const tabLength     = new Slider(6,0,12,'tabLength');
-const rootNote      = new Slider(7,0,24,'rootNote');
-const longestNote   = new Slider(4,1,8,'longestNote');
-const bpm           = new Slider(150,0,250, 'bpm');
-const distortion    = new Slider (0,0,10,'distortion');
+const tabLength     = new Slider(6,0,12,'tabLength',1);
+const rootNote      = new Slider(7,0,24,'rootNote',1);
+const longestNote   = new Slider(2,0,3,'longestNote',2);
+const bpm           = new Slider(150,0,250, 'bpm',1);
+const distortion    = new Slider (0,0,10,'distortion',1);
+const handPosition  = new Slider(0,0,12,"handPosition",1)
 
-const tabType       = new DropDown(['bass','guitar'],'tabType');
-// const scale         = new DropDown(['aeolian','blues'],'scale');
+const tabType       = new DropDown(['bass','guitar','banjo','mayo'],'tabType'); // Mayo?
 const scale         = new DropDown([],'scale');
 scales.forEach(elm => {
     scale.list.push(elm.name);
-    console.log(elm.name);
 });
-const instrument    = new DropDown(['bass1','bass2'],'instrument');
+const instrument    = new DropDown(['bass1','bass2'],'synth');
+synths.forEach( elm =>{ // Typescript won't hates spread for some reason
+    instrument.list.push(elm.title)
+})
 
 const OptionsBoxInfo = {
     buttons : [pushBtn],
-    sliders : [tabLength,rootNote,longestNote,bpm,distortion],
+    sliders : [tabLength,rootNote,longestNote,bpm,distortion,handPosition],
     dropDown : [tabType,scale,instrument]
 }
 

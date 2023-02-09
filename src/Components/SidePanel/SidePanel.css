@@ -4,4 +4,10 @@ aside {
 
 aside:nth-of-type(2) {
   right: 0px;
+}
+
+@media (max-width: 768px) {
+  aside {
+    display: none;
+  }
 }/*# sourceMappingURL=SidePanel.css.map */

@@ -1,4 +1,17 @@
+@import './variables';
 main{
     width:75vw;
     margin:auto;
+    article{
+        margin: 8px 0;
+        .tabPreview{
+            padding-bottom: 12px;
+        }
+    }
+}
+
+@media (max-width:$smlBreak){
+    main{
+        width:100vw;
+    }
 }

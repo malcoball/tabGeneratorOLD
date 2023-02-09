@@ -1,4 +1,16 @@
 main {
   width: 75vw;
   margin: auto;
+}
+main article {
+  margin: 8px 0;
+}
+main article .tabPreview {
+  padding-bottom: 12px;
+}
+
+@media (max-width: 768px) {
+  main {
+    width: 100vw;
+  }
 }/*# sourceMappingURL=App.css.map */

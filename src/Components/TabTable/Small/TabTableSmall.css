@@ -1,11 +1,18 @@
 .tabTableSmall {
   outline: 1px solid black;
-  width: -webkit-max-content;
+  padding-top: 4px;
   width: -moz-max-content;
   width: max-content;
+  border-radius: 4px;
+  box-shadow: 2px 2px 1px black;
+  background-color: #fafafa;
 }
 .tabTableSmall span {
   cursor: pointer;
+  color: rgb(100, 100, 100);
+}
+.tabTableSmall span:hover {
+  color: black;
 }
 .tabTableSmall .topDiv {
   width: 100%;

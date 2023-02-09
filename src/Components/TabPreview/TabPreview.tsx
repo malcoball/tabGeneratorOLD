@@ -11,9 +11,10 @@ const TabPreview = (props:any)=>{
     let count = -1;
     let tabs = tables.map((elm:any)=>{
         count++;
-        return <TabTableSmall push={props.push} key={Math.random()} remove={props.remove} int={count} tab={elm} instrument={props.instrument}/>})
+        return <TabTableSmall push={props.push} tabCont={props.smallTabs} tabFunc={props.tabFunc} key={Math.random()} remove={props.remove} int={count} tab={elm} instrument={props.instrument}/>})
+    let show = tabs.length > 0 ? "block" : "none";
     return(
-        <div className="tabPreview">
+        <div className="tabPreview" style={{display:show}}>
             <h2>{props.title}</h2>
             <div className="tabSmallCont">
                 {tabs}

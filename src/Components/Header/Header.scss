@@ -11,3 +11,14 @@ header{
         align-items: center;
     }
 }
+@media (max-width: $smlBreak) {
+    header{
+        h1{
+            width: 100%;
+            text-align: center;
+        }
+        .volumeDiv{
+            display:none;
+        }
+    }
+}
