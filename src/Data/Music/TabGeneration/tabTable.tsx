@@ -1,8 +1,8 @@
-const noteClick = (input:any)=>{
-    console.log("Note clicked ye");
+const noteClick = (tabCont:any,tabFunc:any,noteInt:number)=>{
+    console.log("Cont : ",tabCont[noteInt]);
 }
 
-const tabItem = (int:any,noteNumber:number)=>{
+const tabItem = (int:any,noteNumber:number,tabCont:any,tabFunc:any,noteInt:number)=>{
     const noteName = "note";
     // // Turns a single number into an li, anything below 0 becomes "-"
     // let data = int < 0 ? "-" : int
@@ -20,12 +20,12 @@ const tabItem = (int:any,noteNumber:number)=>{
     data = int;
 
     // let clas = noteName+" "+noteName+noteNumber; if (data == "-") clas = "marker1";
-    return <li onClick={(e)=>{noteClick(e)}} className={`${clas} tabItem`}>{data}</li>
+    return <li onClick={(e)=>{noteClick(tabCont,tabFunc,noteInt)}} className={`${clas} tabItem`}>{data}</li>
 }
-const tabRow = (row :number[],counter:number) =>{
+const tabRow = (row :number[],counter:number,tabCont:any,tabFunc:any,int:number) =>{
     // Turns a single array into an array of li
     let out = row.map((row)=>{
-        return tabItem(row,counter);
+        return tabItem(row,counter,tabCont,tabFunc,int);
     });
     return <ul className="tabRow">{out}</ul>;
 }
@@ -34,7 +34,7 @@ const tabRowStart = (breakPoints:string[])=>{
     let out = breakPoints.map((point)=>{return <li className="start">{point + " ["}</li>})
     return <ul className="tabRow">{out}</ul>
 }
-const tabTable = (dataIn:number [][],breakPoints:string[])=>{
+const tabTable = (dataIn:number [][],breakPoints:string[],tabCont:any,tabFunc:any,int:number)=>{
     // Turns a 2d array into uls
     let out:any = [];
     // Start of tab/root notes
@@ -43,7 +43,7 @@ const tabTable = (dataIn:number [][],breakPoints:string[])=>{
     let counter = 0;
     dataIn.forEach(element => {
         counter++;
-        out.push(tabRow(element,counter))
+        out.push(tabRow(element,counter,tabCont,tabFunc,int));
     });
     return out;
 }
