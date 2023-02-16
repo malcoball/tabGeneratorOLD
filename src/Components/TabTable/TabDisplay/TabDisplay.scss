@@ -1,9 +1,15 @@
+@import '../../../_variables.scss';
 .TabDisplay{
     display:flex; flex-direction: row;
     text-align: center;
     width:max-content;
     font-size: 1.2em;
     margin: 8px;
+    .tabMid{
+        display: flex;
+        width:240px; 
+        overflow-x: scroll;
+    }
     .tabRow{
         display:flex; flex-direction: column-reverse;
         .tabItem{
@@ -15,6 +21,14 @@
         .marker2{
             opacity: 0.25;
         }
+    }
+    .clickable{
+        color: $col4;
+        cursor: pointer;
+        opacity: 0.7;
+    }
+    .clickable:hover{
+        opacity: 1;
     }
 }
 .active{

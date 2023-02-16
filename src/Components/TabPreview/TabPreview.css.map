@@ -1,1 +1,1 @@
-{"version":3,"sources":["TabPreview.scss","TabPreview.css"],"names":[],"mappings":"AAAA;EACI,kBAAA;EACA,yBAAA;ACCJ;ADAI;EACI,aAAA;EACA,sCAAA;EACA,wBAAA;EACA,6BAAA;ACER","file":"TabPreview.css"}
+{"version":3,"sources":["TabPreview.scss","TabPreview.css"],"names":[],"mappings":"AAAA;EACI,kBAAA;ACCJ;ADAI;EACI,sBAAA;ACER;ADAI;EACI,aAAA;EACA,sCAAA;EACA,wBAAA;EACA,uBAAA;EACA,cAAA;ACER","file":"TabPreview.css"}

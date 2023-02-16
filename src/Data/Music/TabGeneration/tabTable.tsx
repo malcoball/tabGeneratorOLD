@@ -1,13 +1,19 @@
-const noteClick = (tabCont:any,tabFunc:any,noteInt:number)=>{
-    console.log("Cont : ",tabCont[noteInt]);
+let noteCount = 0; let currentNotes: any[] = [];
+
+const noteClick = (tabCont:any,tabFunc:any,event:any,tableInt:number,noteValue:string)=>{
+    const settingsNew = [...tabCont];
+    const oldNote = currentNotes[event.target.value];
+    settingsNew[tableInt].tab[event.target.value] = prompt("New note",""+oldNote);
+    tabFunc(settingsNew);
 }
 
-const tabItem = (int:any,noteNumber:number,tabCont:any,tabFunc:any,noteInt:number)=>{
+const tabItem = (int:any,noteNumber:number,tabCont:any,tabFunc:any,tableInt:number)=>{
     const noteName = "note";
     // // Turns a single number into an li, anything below 0 becomes "-"
     // let data = int < 0 ? "-" : int
     // Turns a single number into an li, below 0 are special markers
-    let data;
+    let value = -1;
+    let data = "";
     let clas = noteName+" "+noteName+noteNumber
     if (int == -1) {
         // Marker 1
@@ -16,11 +22,14 @@ const tabItem = (int:any,noteNumber:number,tabCont:any,tabFunc:any,noteInt:numbe
     if (int < -1){
         // Marker 2
         data = int.slice(2); clas = "marker2";
-    } else 
-    data = int;
+    } else {
+        data = int;
+        value = noteCount++;
+        clas = "clickable"
+    }
 
     // let clas = noteName+" "+noteName+noteNumber; if (data == "-") clas = "marker1";
-    return <li onClick={(e)=>{noteClick(tabCont,tabFunc,noteInt)}} className={`${clas} tabItem`}>{data}</li>
+    return <li value={value} onClick={(e)=>{noteClick(tabCont,tabFunc,e,tableInt,data)}} className={`${clas} tabItem`}>{data}</li>
 }
 const tabRow = (row :number[],counter:number,tabCont:any,tabFunc:any,int:number) =>{
     // Turns a single array into an array of li
@@ -32,20 +41,23 @@ const tabRow = (row :number[],counter:number,tabCont:any,tabFunc:any,int:number)
 const tabRowStart = (breakPoints:string[])=>{
     // Turns the breakpoints into a ul
     let out = breakPoints.map((point)=>{return <li className="start">{point + " ["}</li>})
-    return <ul className="tabRow">{out}</ul>
+    return <div><ul className="tabRow">{out}</ul></div>
 }
 const tabTable = (dataIn:number [][],breakPoints:string[],tabCont:any,tabFunc:any,int:number)=>{
+    // Reset the counter for the notes
+    noteCount = 0; 
     // Turns a 2d array into uls
-    let out:any = [];
+    let start:any = [];
+    let mid:any = [];
     // Start of tab/root notes
-    out.push(tabRowStart(breakPoints));
+    start.push(tabRowStart(breakPoints));
     // Tab info => the actual frets to play
     let counter = 0;
     dataIn.forEach(element => {
         counter++;
-        out.push(tabRow(element,counter,tabCont,tabFunc,int));
+        mid.push(tabRow(element,counter,tabCont,tabFunc,int));
     });
-    return out;
+    return <><div>{start}</div><div className="tabMid">{mid}</div></>;
 }
 const fillBlank = (length:number)=>{
     let out:number[] = [];
@@ -58,6 +70,7 @@ const fillBlank = (length:number)=>{
 }
 const lineToMulti = (dataIn:number[],breakPoints:number[])=>{
     let out:number[][] = [];
+    currentNotes = dataIn;
     let counter = 0;
     const len = breakPoints.length;
     const temp = fillBlank(len);

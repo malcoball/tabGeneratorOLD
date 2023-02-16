@@ -7,6 +7,11 @@
   font-size: 1.2em;
   margin: 8px;
 }
+.TabDisplay .tabMid {
+  display: flex;
+  width: 240px;
+  overflow-x: scroll;
+}
 .TabDisplay .tabRow {
   display: flex;
   flex-direction: column-reverse;
@@ -19,6 +24,14 @@
 }
 .TabDisplay .tabRow .marker2 {
   opacity: 0.25;
+}
+.TabDisplay .clickable {
+  color: #0f0f0f;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.TabDisplay .clickable:hover {
+  opacity: 1;
 }
 
 .active {

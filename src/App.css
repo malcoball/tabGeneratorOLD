@@ -6,7 +6,7 @@ main article {
   margin: 8px 0;
 }
 main article .tabPreview {
-  padding-bottom: 12px;
+  padding-bottom: 32px;
 }
 
 @media (max-width: 768px) {

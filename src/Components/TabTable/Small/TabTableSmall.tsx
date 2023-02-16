@@ -40,7 +40,7 @@ const TabTableSmall = (props:any)=>{
                     <span className="material-symbols-outlined">arrow_right_alt</span>
 
                 </div>
-                <TabDisplay tabCont={props.tabCont} tabFunc={props.tabFunc} int={props.int} tabIn={props.tab.tab} instrument={props.instrument} size="Sml"/>
+                <TabDisplay tabCont={props.tabCont} tabFunc={props.tabFunc} int={props.int} tabIn={props.tab} instrument={props.instrument} size="Sml"/>
                 </div>
                 <div className="tableRight">
                     <span className="material-symbols-outlined" onClick={()=>{refreshTab()}}>cached</span>
