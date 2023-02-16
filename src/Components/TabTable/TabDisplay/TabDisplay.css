@@ -11,6 +11,7 @@
   display: flex;
   width: 240px;
   overflow-x: scroll;
+  padding-bottom: 8px;
 }
 .TabDisplay .tabRow {
   display: flex;

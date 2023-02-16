@@ -57,7 +57,10 @@ const tabTable = (dataIn:number [][],breakPoints:string[],tabCont:any,tabFunc:an
         counter++;
         mid.push(tabRow(element,counter,tabCont,tabFunc,int));
     });
-    return <><div>{start}</div><div className="tabMid">{mid}</div></>;
+    return  <>
+                <div>{start}</div>
+                <div className="tabMid">{mid}</div>
+            </>;
 }
 const fillBlank = (length:number)=>{
     let out:number[] = [];

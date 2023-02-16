@@ -25,7 +25,7 @@ function App() {
   },[settings])
 
   const [smallTabs,setSmallTabs] = useState([ // Holds the small tabs
-  {tab : [9,3,11,-4], selected:2, name: "unset", settings:settings},
+  {tab : [9,3,11,-4],activeNote : -1, selected:2, name: "unset", settings:settings},
   ])
   const removeSmallTab = (int:number)=>{
     let out : any[] = [];
@@ -44,7 +44,7 @@ function App() {
     // When 'new tab' button is used.
     if (settings.smallTab !== null){
       let newTab = tabGenerate(settings.tabLength,true,settings.scale,settings.rootNote,settings.longestNote);
-      let newTabs = [...smallTabs];   newTabs.push({tab : newTab, selected:0, name : 'listen', settings:settings});
+      let newTabs = [...smallTabs];   newTabs.push({tab : newTab, selected:0, activeNote:-1, name : 'listen', settings:settings});
       setSmallTabs(newTabs);
     }
   },[settings.smallTab])
@@ -60,7 +60,7 @@ function App() {
       <SidePanel settings={settings} update={setSettings} options={['bpm','distortion','instrument']} side='right'/>
       <main>
         <article>
-          <TabPreview push={smallTabToMain} smallTabs={smallTabs} tabFunc={setSmallTabs} remove={removeSmallTab}  title="Tab Preview" instrument={settings.tabType}/>
+          <TabPreview push={smallTabToMain} smallTabs={smallTabs} tabFunc={setSmallTabs} remove={removeSmallTab}  title="Tab Preview" settings={settings}/>
         </article>
         <section>
           {/* <TabMain settings={settings} title="Main Display" tabIn={mainTab} instrument={settings.tabType}/> */}
