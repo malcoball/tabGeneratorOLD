@@ -34,7 +34,9 @@
 .TabDisplay .clickable:hover {
   opacity: 1;
 }
-
-.active {
-  color: red !important;
+.TabDisplay .playing {
+  color: red;
+}
+.TabDisplay .played {
+  color: rgb(109, 0, 0);
 }/*# sourceMappingURL=TabDisplay.css.map */

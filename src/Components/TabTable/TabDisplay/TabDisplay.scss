@@ -31,7 +31,10 @@
     .clickable:hover{
         opacity: 1;
     }
-}
-.active{
-    color: red !important;
+    .playing{
+        color: $noteCol2;
+    }
+    .played{
+        color: $noteCol3;
+    }
 }

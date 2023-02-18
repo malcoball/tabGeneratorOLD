@@ -17,13 +17,13 @@ const TabMain = (props:any)=>{
             pauseTabFunc();
     }
     const playTabFunc = ()=>{
-        let target = document.querySelectorAll('.tabMain .mainTabContainer .note');
-        // let timing = playTab(props.tabIn,props.settings.bpm,octave,inst.stringNames[0],"synth2");
-        let timing = playTab(props.tabIn,props.settings.bpm,octave,inst.stringNames[0],props.settings.synth);
-        setPlay(true);
-        setTimeout(()=>{
-            pauseTabFunc();
-        },timing);
+        // let target = document.querySelectorAll('.tabMain .mainTabContainer .note');
+        // // let timing = playTab(props.tabIn,props.settings.bpm,octave,inst.stringNames[0],"synth2");
+        // // let timing = playTab(props.tabIn,props.settings.bpm,octave,inst.stringNames[0],props.settings.synth);
+        // setPlay(true);
+        // setTimeout(()=>{
+        //     pauseTabFunc();
+        // },timing);
     }
     const pauseTabFunc = ()=>{
         setPlay(false);

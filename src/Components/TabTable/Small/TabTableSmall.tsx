@@ -4,8 +4,10 @@ import tabGenerate from "../../../Data/Music/TabGeneration/tabGenerate";
 import TabDisplay from "../TabDisplay/TabDisplay";
 import './TabTableSmall.css';
 import { noteHighlights } from "../../../functions";
-import { playTab } from "../../../Tone/playSound";
+import { playTab, tabToTone } from "../../../Tone/playSound";
+import instrument from '../../../Data/Music/Instruments';
 const TabTableSmall = (props:any)=>{
+    const inst = instrument(props.settings.tabType);
     const [name,setName] = useState(props.tab.name);
     const handleChange = (event:any)=>{
         setName(event.target.value);
@@ -29,6 +31,19 @@ const TabTableSmall = (props:any)=>{
         props.tabFunc(replace);
     }
     const arrowBtn = (direction:string)=>{
+        noteHighlight(direction);
+    }
+    const playBtn = ()=>{
+        const tab = props.tabCont[props.int].tab;
+        const bpm = props.settings.bpm;
+        const octave = inst.octave;
+        const string = inst.stringNames[0];
+        const synth = props.settings.synth;
+        // console.log("tabIn : ",tab);
+        let toneTab = tabToTone(tab);
+        playTab(toneTab,bpm,octave,string,synth,'.tabTableSmall',props.int);
+    }
+    const noteHighlight = (direction:string)=>{
         // Get the html elements
         const domTable = document.querySelectorAll('.tabTableSmall')[props.int];
         const domTab = domTable.querySelectorAll('.clickable')
@@ -50,9 +65,6 @@ const TabTableSmall = (props:any)=>{
             noteHighlights.single('.tabTableSmall','.clickable',props.int,value,'active',false)
         }
         settingsNew[props.int].activeNote = value;
-
-    }
-    const playBtn = ()=>{
     }
     return(
         <div className="tabTableSmall">
@@ -68,11 +80,11 @@ const TabTableSmall = (props:any)=>{
                     <span onClick={()=>{arrowBtn("right")}} className="material-symbols-outlined">arrow_right_alt</span>
 
                 </div>
-                <TabDisplay tabCont={props.tabCont} tabFunc={props.tabFunc} int={props.int} tabIn={props.tab} instrument={props.settings.instrument} size="Sml"/>
+                <TabDisplay tabCont={props.tabCont} tabFunc={props.tabFunc} int={props.int} tabIn={props.tab} instrument={props.settings.tabType} size="Sml"/>
                 </div>
                 <div className="tableRight">
                     <span className="material-symbols-outlined" onClick={()=>{refreshTab()}}>cached</span>
-                    <span className="material-symbols-outlined">play_circle</span>
+                    <span onClick={playBtn} className="material-symbols-outlined">play_circle</span>
                     <span className="material-symbols-outlined" onClick={()=>{props.push(props.int)}}>arrow_downward</span>
                 </div>
             </div>

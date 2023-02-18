@@ -19,13 +19,13 @@ function App() {
     distortion:0,
     longestNote:2,
     handPosition: 0,
-    synth : "synth"
+    synth : "synth1"
   })
   useEffect(()=>{
   },[settings])
 
   const [smallTabs,setSmallTabs] = useState([ // Holds the small tabs
-  {tab : [9,3,11,-4],activeNote : -1, selected:2, name: "unset", settings:settings},
+  {tab : [9,3,11,-2],activeNote : -1, selected:2, name: "unset", settings:settings},
   ])
   const removeSmallTab = (int:number)=>{
     let out : any[] = [];
