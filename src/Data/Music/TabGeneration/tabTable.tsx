@@ -3,8 +3,12 @@ let noteCount = 0; let currentNotes: any[] = [];
 const noteClick = (tabCont:any,tabFunc:any,event:any,tableInt:number,noteValue:string)=>{
     const settingsNew = [...tabCont];
     const oldNote = currentNotes[event.target.value];
-    settingsNew[tableInt].tab[event.target.value] = prompt("New note",""+oldNote);
-    tabFunc(settingsNew);
+    const inp = prompt("New note",""+oldNote);
+    if (inp !== null) {
+        const newValue = parseInt(inp);
+        settingsNew[tableInt].tab[event.target.value] = newValue;
+        tabFunc(settingsNew);
+    }
 }
 
 const tabItem = (int:any,noteNumber:number,tabCont:any,tabFunc:any,tableInt:number)=>{
@@ -24,8 +28,8 @@ const tabItem = (int:any,noteNumber:number,tabCont:any,tabFunc:any,tableInt:numb
         data = int.slice(2); clas = "marker2";
     } else {
         data = int;
-        value = noteCount++;
         clas = "clickable"
+        value = noteCount++;
     }
 
     // let clas = noteName+" "+noteName+noteNumber; if (data == "-") clas = "marker1";

@@ -47,19 +47,18 @@ const playTab = (tabIn:{note:number, length:string}[],bpm:number,octave:number,r
     console.log("current Note : ",note);
     let intervalTime;
     note !== undefined ? intervalTime = noteLengthSec(bpmToSec(bpm),note.length) : pause = true;
+    // Playing
+    playSound(tabIn[currentNote],octave,rootNote);
+    // Highlight it ye
+    noteHighlights.single(tableName,'.clickable',tableInt,currentNote,'playing',false);
+    noteHighlights.upto(tableName,'.clickable',tableInt,'played',currentNote)
     if (currentNote == 0){ // Init part pretty much
         pause = false; // Actually lets it play, this logic might cause an issue though
     }
+    currentNote++;
+
     setTimeout(()=>{
         if ((currentNote < length) && (pause == false)){
-            // Playing
-            playSound(tabIn[currentNote],octave,rootNote);
-            // Highlight it ye
-            noteHighlights.single(tableName,'.clickable',tableInt,currentNote,'playing',false);
-            noteHighlights.upto(tableName,'.clickable',tableInt,'played',currentNote)
-            currentNote++;
-            // intervalTime = noteLengthSec(bpmToSec(bpm),note.length);
-
             // Recursion
             playTab(tabIn,bpm,octave,rootNote,synthInp,tableName,tableInt,currentNote);
         } else {
