@@ -2,6 +2,8 @@ import * as Tone from 'tone';
 import { tabNumberToNote } from './noteConversion';
 import { getSynth } from './synths';
 import { noteHighlights } from '../functions';
+// import {sampler} from './samples';
+import playSnd from './samples';
 
 //create a synth and connect it to the main output (your speakers)
 let pause = true; // Stops the synth from playing
@@ -37,11 +39,13 @@ const getToneLength = (toneArr : {note : number,length:string}[])=>{
 
 const playSound = (noteIn:{note:number,length:string},octave:number,rootNote:string)=>{
     let note = tabNumberToNote(noteIn.note,octave,rootNote);
-    synth.synth.triggerAttackRelease(note, noteIn.length);
+    playSnd();
+    // synth.synth.triggerAttackRelease(note, noteIn.length);
+    // sampler.triggerAttackRelease(note, noteIn.length);
 }
 
 const playTab = (tabIn:{note:number, length:string}[],bpm:number,octave:number,rootNote:string,synthInp:string,tableName:string,tableInt:number,currentNote:number = 0)=>{
-    synth = getSynth(synthInp);
+    synth = getSynth(synthInp); // Overrides a global var
     const length = tabIn.length;
     const note = tabIn[currentNote];
     console.log("current Note : ",note);

@@ -31,12 +31,20 @@ const TabTableSmall = (props:any)=>{
         props.tabFunc(replace);
     }
     const arrowLeft = ()=>{
-        // Reduce the tab by 1 
+        // Reduce the tab by 1, or reduce the size
         let newTab = props.tabCont[props.int].tab;
-        newTab.pop();
+        let target = newTab[newTab.length-1];
+        if (newTab[newTab.length-1] < -2){
+            // Reduce the length of a 1 or 2 note
+            newTab[newTab.length-1]++;
+        } else {
+            // Remove 
+            newTab.pop();
+        }
         let replace = [...props.tabCont];
         replace[props.int].tab = newTab;
         props.tabFunc(replace);
+        
     }
     const arrowRight = ()=>{
         // Increase tab by 1

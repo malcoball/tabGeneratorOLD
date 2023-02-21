@@ -25,7 +25,7 @@ function App() {
   },[settings])
 
   const [smallTabs,setSmallTabs] = useState([ // Holds the small tabs
-  {tab : [9,3,11,-2],activeNote : -1, selected:2, name: "unset", settings:settings},
+  {tab : [9,3,11,-2,5],activeNote : -1, selected:2, name: "unset", settings:settings},
   ])
   const removeSmallTab = (int:number)=>{
     let out : any[] = [];

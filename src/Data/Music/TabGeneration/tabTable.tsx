@@ -1,14 +1,29 @@
-let noteCount = 0; let currentNotes: any[] = [];
+let noteCount = 0; let currentNotes: any[] = []; let pushCount = true;
+const promptMsg = "New note : > -1 for normal note -2,-3,-4 for length timing";
 
 const noteClick = (tabCont:any,tabFunc:any,event:any,tableInt:number,noteValue:string)=>{
     const settingsNew = [...tabCont];
-    const oldNote = currentNotes[event.target.value];
-    const inp = prompt("New note",""+oldNote);
+    const oldNote = currentNotes[event.target.value]; // The note that got clicked really
+    const behindNote = currentNotes[event.target.value-1]; // The note behind that, used for checking lengths
+    console.log(behindNote);
+    const inp = prompt(promptMsg,""+oldNote);
     if (inp !== null) {
-        const newValue = parseInt(inp);
-        settingsNew[tableInt].tab[event.target.value] = newValue;
-        tabFunc(settingsNew);
+        
+        if (inp === ""){
+            console.log("inp : ",inp);
+            settingsNew[tableInt].tab[event.target.value] = "";
+            let arr = [...settingsNew[tableInt].tab];
+            arr = arr.filter((elm:string) =>{return elm !== ""});
+            settingsNew[tableInt].tab = arr;
+            
+            tabFunc(settingsNew);
+        } else {
+            const newValue = parseInt(inp);
+            settingsNew[tableInt].tab[event.target.value] = newValue;
+            tabFunc(settingsNew);
+        }
     }
+
 }
 
 const tabItem = (int:any,noteNumber:number,tabCont:any,tabFunc:any,tableInt:number)=>{
@@ -25,13 +40,18 @@ const tabItem = (int:any,noteNumber:number,tabCont:any,tabFunc:any,tableInt:numb
     } else 
     if (int < -1){
         // Marker 2
+        value = noteCount;
         data = int.slice(2); clas = "marker2";
+        if (pushCount === true){
+            pushCount = false;
+            noteCount++;
+        }
     } else {
+        pushCount = true;
         data = int;
         clas = "clickable"
         value = noteCount++;
     }
-
     // let clas = noteName+" "+noteName+noteNumber; if (data == "-") clas = "marker1";
     return <li value={value} onClick={(e)=>{noteClick(tabCont,tabFunc,e,tableInt,data)}} className={`${clas} tabItem`}>{data}</li>
 }

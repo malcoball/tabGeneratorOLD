@@ -1,5 +1,5 @@
 import * as Tone from 'tone';
-
+// import samples from './samples';
 
 export const synths :{synth: any, title : string}[] = [];
 class Synth {
@@ -14,6 +14,7 @@ class Synth {
 new Synth(new Tone.Synth().toDestination(),"synth1");
 new Synth(new Tone.FMSynth().toDestination(),"synth2");
 new Synth(new Tone.AMSynth().toDestination(),"synth3");
+// samples.forEach(elm =>{synths.push(elm)});
 
 export const getSynth = (name:string) :any=>{
     let out;
