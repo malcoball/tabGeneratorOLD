@@ -1,9 +1,9 @@
 let noteCount = 0; let currentNotes: any[] = [];
-
+const promptMsg = "New note (-1 < for normal note, -2,-3,-4 for note extension)"
 const noteClick = (tabCont:any,tabFunc:any,event:any,tableInt:number,noteValue:string)=>{
     const settingsNew = [...tabCont];
     const oldNote = currentNotes[event.target.value];
-    const inp = prompt("New note",""+oldNote);
+    const inp = prompt(promptMsg,""+oldNote);
     if (inp !== null) {
         const newValue = parseInt(inp);
         settingsNew[tableInt].tab[event.target.value] = newValue;
@@ -26,6 +26,8 @@ const tabItem = (int:any,noteNumber:number,tabCont:any,tabFunc:any,tableInt:numb
     if (int < -1){
         // Marker 2
         data = int.slice(2); clas = "marker2";
+        value = noteCount++;
+        
     } else {
         data = int;
         clas = "clickable"
