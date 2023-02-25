@@ -1,5 +1,6 @@
 let noteCount = 0; let currentNotes: any[] = []; let pushCount = true;
-const promptMsg = "New note : > -1 for normal note -2,-3,-4 for length timing";
+const promptMsg = "New note : > -1 for normal note -1,-2,-3,-4 for length timing";
+const Marker1 = -1; // What the tab reads to put a -, it's that low to free up room for marker 2, which markers the length of a note.
 
 const noteClick = (tabCont:any,tabFunc:any,event:any,tableInt:number,noteValue:string)=>{
     const settingsNew = [...tabCont];
@@ -34,11 +35,11 @@ const tabItem = (int:any,noteNumber:number,tabCont:any,tabFunc:any,tableInt:numb
     let value = -1;
     let data = "";
     let clas = noteName+" "+noteName+noteNumber
-    if (int == -1) {
+    if (int === Marker1) {
         // Marker 1
         data = "-"; clas = "marker1";
     } else 
-    if (int < -1){
+    if (int < 0){
         // Marker 2
         value = noteCount;
         data = int.slice(2); clas = "marker2";
@@ -90,7 +91,7 @@ const fillBlank = (length:number)=>{
     let out:number[] = [];
     let count = 0;
     while (count < length){
-        out.push(-1);
+        out.push(Marker1);
         count ++;
     }
     return out;
@@ -105,11 +106,11 @@ const lineToMulti = (dataIn:number[],breakPoints:number[])=>{
         let loops = 0; let int = counter -1;
         switch(elm){
             // case -2 : out.push(markToLine(out,counter-1,-2)); break;
-            case -2 : loops = 1; break;
-            case -3 : loops = 3; break;
-            case -4 : loops = 7; break;
+            case -1 : loops = 1; break;
+            case -2 : loops = 3; break;
+            case -3 : loops = 7; break;
+            case -4 : loops = 15; break;
 
-            case -2: ; break; 
             default :loops = -1; out.push(intToLine(elm,breakPoints,temp)); break;
         }
         for (let i = 0; i < loops; i++){

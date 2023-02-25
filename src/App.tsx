@@ -6,6 +6,7 @@ import SidePanel from './Components/SidePanel/SidePanel';
 import TabPreview from './Components/TabPreview/TabPreview';
 import TabMain from './Components/TabTable/Main/TabMain';
 import tabGenerate from './Data/Music/TabGeneration/tabGenerate';
+import PlayAudioTest from './Components/Tests/PlayAudioTest';
 
 function App() {
 
@@ -17,7 +18,7 @@ function App() {
     rootNote:0,
     bpm:120,
     distortion:0,
-    longestNote:2,
+    longestNote:[0,3],
     handPosition: 0,
     synth : "synth1"
   })
@@ -25,7 +26,7 @@ function App() {
   },[settings])
 
   const [smallTabs,setSmallTabs] = useState([ // Holds the small tabs
-  {tab : [9,3,11,-2,5],activeNote : -1, selected:2, name: "unset", settings:settings},
+  {tab : [3,6,3,-1,6,-2,9,-3],activeNote : -1, selected:2, name: "unset", settings:settings},
   ])
   const removeSmallTab = (int:number)=>{
     let out : any[] = [];
@@ -63,6 +64,7 @@ function App() {
           <TabPreview push={smallTabToMain} smallTabs={smallTabs} tabFunc={setSmallTabs} remove={removeSmallTab}  title="Tab Preview" settings={settings}/>
         </article>
         <section>
+          {/* <PlayAudioTest/> */}
           {/* <TabMain settings={settings} title="Main Display" tabIn={mainTab} instrument={settings.tabType}/> */}
         </section>
       </main>

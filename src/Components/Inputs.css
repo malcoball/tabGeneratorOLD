@@ -50,6 +50,10 @@
 }
 .sliderCustom .sliderCont .valueCont input:focus {
   outline: none;
+  transform: scale(1.1);
+}
+.sliderCustom .sliderCont .valueCont input:hover {
+  transform: scale(1.1);
 }
 .sliderCustom .sliderCont #sliderId {
   padding: 0px;
@@ -81,10 +85,26 @@
 .dropDown .dropDownControl span img {
   width: 16px;
   aspect-ratio: 2;
+  transition: 0.25s;
+  transition-timing-function: ease-out;
+}
+.dropDown .dropDownControl .rightArrow img {
+  transform: rotate(-90deg);
 }
 .dropDown .dropDownList {
+  border-width: 3px;
+  border-style: solid;
+  border-left-color: #2c2a23;
+  border-bottom-color: #1b1a17;
+  border-right-color: #2c2a24;
+  border-top-width: 0;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
   width: 90%;
   margin: auto;
+  position: absolute;
+  left: 5%;
+  z-index: 2;
 }
 .dropDown .dropDownList .dropDownContainer .dropDownItem {
   cursor: pointer;
@@ -101,7 +121,16 @@
   border-radius: 0 0 4px 4px;
 }
 .dropDown .dropDownList .dropDownContainer .dropDownItem:hover {
-  filter: brightness(0.9);
+  filter: brightness(1.2);
+}
+.dropDown .dropDownList .dropDownContainer .dropDownSplit {
+  font-size: 1.2em;
+  text-align: left;
+  text-transform: uppercase;
+  list-style-type: none;
+  padding: 8px 0 8px 4px;
+  background-color: #81571d;
+  border-top: 1px solid black;
 }
 
 .inputValue {

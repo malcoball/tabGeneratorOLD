@@ -24,6 +24,12 @@ export const Dropdown = (props:any)=>{
     const [list,setList] = useState(info.list);
     const [showList,setShowList] = useState(false);
     const [selected,setSelected] = useState(props.settings[info.name]);
+    const [arrowDir,setArrowDir] = useState('downArrow');
+
+    const menuToggle = ()=>{
+        setShowList(!showList);
+        arrowDir === 'downArrow' ? setArrowDir('rightArrow') : setArrowDir('downArrow');
+    }
 
     const changeText = (e:any)=>{
         let settingsNew = {...props.settings,[info.name]:e}
@@ -38,12 +44,12 @@ export const Dropdown = (props:any)=>{
             <h5 className='inputTitle'>{info.name}</h5>
             <div className="dropDownControl widthSet inputBorder heightSet">
                 <p className='inputValue'>{selected}</p>
-                <span className="downArror" onClick={()=>{setShowList(!showList)}}>
+                <span className={arrowDir} onClick={menuToggle}>
                     <img alt="nl" src={Images.ui.nav.down}/>
                 </span>
             </div>
             {showList? <div className="dropDownList">
-                <ul className='dropDownContainer' onClick={()=>{setShowList(!showList)}}>
+                <ul className='dropDownContainer' onClick={menuToggle} onMouseLeave={menuToggle}>
                     {dropList}
                 </ul>
             </div> : <></>}
@@ -55,7 +61,10 @@ const DropDownItem = (props:any)=>{
     const [value,setValue] = useState(props.text);
     const sendValue = ()=>{props.func(value)};
     return(
-        <li className='dropDownItem' onClick={sendValue}>{value}</li>
+        value.slice(0,1) !== "<" ? 
+            <li className='dropDownItem' onClick={sendValue}>{value}</li> : 
+            <li className='dropDownSplit'>{value.slice(7)}</li>
+        
     )
 }
 

@@ -1,6 +1,9 @@
 @import '../../../variables';
-
+.tabTableSmallFade{
+    opacity: 0;
+}
 .tabTableSmall{
+    transition: 2s;
     outline: 1px solid black;
     padding-top: 4px;
     // width: max-content;
@@ -8,6 +11,8 @@
     border-radius: 4px;
     box-shadow: 2px 2px 1px black;
     background-color: $bgCol5;
+    position:relative;
+
     span{
         cursor: pointer;
         color: rgb(100, 100, 100);

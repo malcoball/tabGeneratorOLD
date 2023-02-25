@@ -1,10 +1,16 @@
+.tabTableSmallFade {
+  opacity: 0;
+}
+
 .tabTableSmall {
+  transition: 2s;
   outline: 1px solid black;
   padding-top: 4px;
   width: 320px;
   border-radius: 4px;
   box-shadow: 2px 2px 1px black;
   background-color: #fafafa;
+  position: relative;
 }
 .tabTableSmall span {
   cursor: pointer;

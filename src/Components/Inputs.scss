@@ -48,6 +48,10 @@
             }
             input:focus{
                 outline: none;
+                transform: scale(1.1);
+            }
+            input:hover{
+                transform: scale(1.1);
             }
             
         }
@@ -76,12 +80,27 @@
             img{
                 width:16px;
                 aspect-ratio: 2;
+                transition:0.25s;
+                transition-timing-function: ease-out;
+            }
+        }
+        .rightArrow{
+            img{
+                transform: rotate(-90deg); 
             }
         }
     }
     .dropDownList{
+        border-width: 3px; border-style: solid;
+        border-left-color: #2c2a23;
+        border-bottom-color: #1b1a17;
+        border-right-color: #2c2a24;
+        border-top-width: 0;
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
         width:90%;
         margin:auto;
+        position:absolute; left: 5%; z-index: 2;
         .dropDownContainer{
             .dropDownItem{
                 cursor:pointer;
@@ -98,7 +117,15 @@
                 border-radius: 0 0 4px 4px;
             }
             .dropDownItem:hover{
-                filter: brightness(0.9);
+                filter: brightness(1.2);
+            }
+            .dropDownSplit{
+                font-size: 1.2em;
+                text-align: left; text-transform: uppercase;
+                list-style-type:none;
+                padding: 8px 0 8px 4px;
+                background-color: $bgCol3;
+                border-top: 1px solid black;
             }
         }
     }

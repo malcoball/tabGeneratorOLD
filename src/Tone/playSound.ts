@@ -1,25 +1,36 @@
 import * as Tone from 'tone';
 import { tabNumberToNote } from './noteConversion';
-import { getSynth } from './synths';
 import { noteHighlights } from '../functions';
-// import {sampler} from './samples';
-import playSnd from './samples';
+import sampler from '././sampler/bassSampler1';
+import {getInstrument} from './instrumentContainer';
 
 //create a synth and connect it to the main output (your speakers)
 let pause = true; // Stops the synth from playing
-let synth = getSynth("synth1");
+let synth = getInstrument("bass1");
 
-const tabToTone = (arrIn : number[])=>{
+const noteLengthValue = (int:number,intPush:number)=>{
+    // console.log("intPush : ",intPush);
+    let length = int < 0 ? int-intPush : -intPush;
+
+    switch(length){
+        case 0 : return '16n'; 
+        case -1 : return '8n';  
+        case -2 : return '4n';  
+        case -3 : return '2n';  
+        case -4 : return '1n';  
+        default : return '1n'; // Pretty sure this is the longest note possible
+    }
+}
+
+const tabToTone = (arrIn : number[],longestNote : number)=>{
     // arr [2,-3] => arr [{note: 2, length : 4n}]
     let out = [];
     for (let i = 0; i < arrIn.length; i++){
+        // Asseses the value of the next note to get the needed length
         let elm = arrIn[i]; let next = arrIn[i+1];
-        // Skips the next int if it's  note length
-        switch(next){
-            default : out.push({note:elm,length: "8n"}); break;
-            case -2 : out.push({note:elm,length: "4n"}); i++;break;
-            case -3 : out.push({note:elm,length: "2n"}); i++;break;
-            case -4 : out.push({note:elm,length: "1n"}); i++;break;
+        out.push({note:elm,length:noteLengthValue(next,longestNote)});
+        if (next < 0){  // Skips the next int if it's  note length
+            i++
         }
     }
     return out;
@@ -28,10 +39,11 @@ const getToneLength = (toneArr : {note : number,length:string}[])=>{
     let length = 0;
     toneArr.forEach(elm =>{
         switch(elm.length){
-            case "8n" : length ++; break;
-            case "4n" : length +=2; break;
-            case "2n" : length +=4; break;
-            case "1n" : length +=8; break;
+            case "16n" : length ++; break;
+            case "8n" : length +=2; break;
+            case "4n" : length +=4; break;
+            case "2n" : length +=8; break;
+            case "1n" : length +=16; break;
         }
     })
     return length;
@@ -39,16 +51,15 @@ const getToneLength = (toneArr : {note : number,length:string}[])=>{
 
 const playSound = (noteIn:{note:number,length:string},octave:number,rootNote:string)=>{
     let note = tabNumberToNote(noteIn.note,octave,rootNote);
-    playSnd();
-    // synth.synth.triggerAttackRelease(note, noteIn.length);
+    synth.synth.triggerAttackRelease(note, noteIn.length);
+    console.log("note : ",noteIn.note," noteLength : ",noteIn.length);
     // sampler.triggerAttackRelease(note, noteIn.length);
 }
 
 const playTab = (tabIn:{note:number, length:string}[],bpm:number,octave:number,rootNote:string,synthInp:string,tableName:string,tableInt:number,currentNote:number = 0)=>{
-    synth = getSynth(synthInp); // Overrides a global var
+    synth = getInstrument(synthInp); // Overrides a global var
     const length = tabIn.length;
     const note = tabIn[currentNote];
-    console.log("current Note : ",note);
     let intervalTime;
     note !== undefined ? intervalTime = noteLengthSec(bpmToSec(bpm),note.length) : pause = true;
     // Playing
@@ -84,6 +95,7 @@ const bpmToSec = (bpm:number)=>{
 }
 const noteLengthSec = (sec:number,noteLength:string)=>{
     switch (noteLength){
+        case "16n" : return sec/2;
         case "8n" : return sec;
         case "4n" : return sec *2;
         case "2n" : return sec *4;

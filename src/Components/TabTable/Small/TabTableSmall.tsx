@@ -17,8 +17,6 @@ const TabTableSmall = (props:any)=>{
         props.remove(props.int);
     }
     const nameChange = (nameIn:string)=>{
-        console.log("name : ",name);
-        console.log(props.tabCont[props.int])
         let replace = [...props.tabCont];
         replace[props.int].name = nameIn;
     }
@@ -60,11 +58,12 @@ const TabTableSmall = (props:any)=>{
         const octave = inst.octave;
         const string = inst.stringNames[0];
         const synth = props.settings.synth;
-        let toneTab = tabToTone(tab);
+        let toneTab = tabToTone(tab,props.settings.longestNote[0]);
         playTab(toneTab,bpm,octave,string,synth,'.tabTableSmall',props.int);
     }
+
     return(
-        <div className="tabTableSmall">
+        <div className={'tabTableSmall'}>
             <div className="topDiv">
                 {/* <h4>{name}  {props.int}</h4> */}
                 <input type="text" onChange={(event)=>{handleChange(event)}} value={props.tab.name}/>
