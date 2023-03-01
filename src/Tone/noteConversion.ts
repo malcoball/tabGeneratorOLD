@@ -54,4 +54,15 @@ const tabNumberToNote = (number:number,octaveIn:number,rootNote:string)=>{
     let octave = inp.count+octaveIn;
     return letter + octave;
 }
-export {tabNumberToNote}
+
+const lengthToNoteLength = (noteIn:number)=>{
+    switch(noteIn){
+        case 5 : return 32;
+        case 4 : return 16;
+        case 3 : return 8;
+        case 2 : return 4;
+        case 1 : return 2;
+        case 0 : return 1;
+    }
+}
+export {tabNumberToNote,lengthToNoteLength}

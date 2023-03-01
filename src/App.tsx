@@ -18,7 +18,7 @@ function App() {
     rootNote:0,
     bpm:120,
     distortion:0,
-    longestNote:[0,3],
+    lengthRange:[0,3],
     handPosition: 0,
     synth : "synth1"
   })
@@ -26,7 +26,7 @@ function App() {
   },[settings])
 
   const [smallTabs,setSmallTabs] = useState([ // Holds the small tabs
-  {tab : [3,6,3,-1,6,-2,9,-3],activeNote : -1, selected:2, name: "unset", settings:settings},
+  {tab : [{note : 1, length : 5},{note: 7, length: 4}],activeNote : -1, selected:2, name: "unset", settings:settings},
   ])
   const removeSmallTab = (int:number)=>{
     let out : any[] = [];
@@ -44,20 +44,20 @@ function App() {
   useEffect(()=>{
     // When 'new tab' button is used.
     if (settings.smallTab !== null){
-      let newTab = tabGenerate(settings.tabLength,true,settings.scale,settings.rootNote,settings.longestNote);
+      let newTab = tabGenerate(settings.tabLength,true,settings.scale,settings.rootNote,settings.lengthRange);
       let newTabs = [...smallTabs];   newTabs.push({tab : newTab, selected:0, activeNote:-1, name : 'listen', settings:settings});
       setSmallTabs(newTabs);
     }
   },[settings.smallTab])
 
   const [mainTab,setMainTab] = useState([
-    0
+    {note : 0, length : 5},{note: 2, length: 4}
   ])
 
   return (
     <>
       <Header title="Guitar Tab Generator"/>
-      <SidePanel settings={settings} update={setSettings} options={['pushBtn','tabLength','scale','tabType','rootNote','handPosition','longestNote']} side='left'/>
+      <SidePanel settings={settings} update={setSettings} options={['pushBtn','tabLength','scale','tabType','rootNote','handPosition','lengthRange']} side='left'/>
       <SidePanel settings={settings} update={setSettings} options={['bpm','distortion','instrument']} side='right'/>
       <main>
         <article>

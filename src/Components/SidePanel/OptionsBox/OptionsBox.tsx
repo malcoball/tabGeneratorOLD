@@ -9,7 +9,7 @@ const getComponent = (input:string,update:any,settings:any)=>{
         // Sliders
         case "tabLength" : return <SliderCustom     type={0} update={update} settings={settings}/>;
         case "rootNote" : return <SliderCustom      type={1} update={update} settings={settings}/>;
-        case "longestNote" : return <SliderCustom   type={2} update={update} settings={settings}/>;
+        case "lengthRange" : return <SliderCustom   type={2} update={update} settings={settings}/>;
         case "bpm" : return <SliderCustom           type={3} update={update} settings={settings}/>;
         case "distortion" : return <SliderCustom    type={4} update={update} settings={settings}/>;
         case "handPosition" : return <SliderCustom    type={5} update={update} settings={settings}/>;

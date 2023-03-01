@@ -4,7 +4,7 @@ import tabGenerate from "../../../Data/Music/TabGeneration/tabGenerate";
 import TabDisplay from "../TabDisplay/TabDisplay";
 import './TabTableSmall.css';
 import { noteHighlights } from "../../../functions";
-import { playTab, tabToTone } from "../../../Tone/playSound";
+import { playTab } from "../../../Tone/playSound";
 import instrument from '../../../Data/Music/Instruments';
 const TabTableSmall = (props:any)=>{
     const inst = instrument(props.settings.tabType);
@@ -58,8 +58,7 @@ const TabTableSmall = (props:any)=>{
         const octave = inst.octave;
         const string = inst.stringNames[0];
         const synth = props.settings.synth;
-        let toneTab = tabToTone(tab,props.settings.longestNote[0]);
-        playTab(toneTab,bpm,octave,string,synth,'.tabTableSmall',props.int);
+        playTab(tab,bpm,octave,string,synth,'.tabTableSmall',props.int);
     }
 
     return(

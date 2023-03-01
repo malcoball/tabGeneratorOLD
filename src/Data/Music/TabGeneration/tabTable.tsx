@@ -1,6 +1,7 @@
 let noteCount = 0; let currentNotes: any[] = []; let pushCount = true;
 const promptMsg = "New note : > -1 for normal note -1,-2,-3,-4 for length timing";
 const Marker1 = -1; // What the tab reads to put a -, it's that low to free up room for marker 2, which markers the length of a note.
+const Marker2 = -2; // Don't know if this needs to be defined up here but it feels useful currently.
 
 const noteClick = (tabCont:any,tabFunc:any,event:any,tableInt:number,noteValue:string)=>{
     const settingsNew = [...tabCont];
@@ -96,30 +97,27 @@ const fillBlank = (length:number)=>{
     }
     return out;
 }
-const lineToMulti = (dataIn:number[],breakPoints:number[])=>{
+const lineToMulti = (dataIn:{note:number,length:number}[],breakPoints:number[])=>{
     let out:number[][] = [];
     currentNotes = dataIn;
     let counter = 0;
     const len = breakPoints.length;
     const temp = fillBlank(len);
     dataIn.forEach(elm => {
-        let loops = 0; let int = counter -1;
-        switch(elm){
-            // case -2 : out.push(markToLine(out,counter-1,-2)); break;
-            case -1 : loops = 1; break;
-            case -2 : loops = 3; break;
-            case -3 : loops = 7; break;
-            case -4 : loops = 15; break;
-
-            default :loops = -1; out.push(intToLine(elm,breakPoints,temp)); break;
-        }
-        for (let i = 0; i < loops; i++){
-            out.push(markToLine(out,int,elm)); 
-            if (i != 0) counter ++;
-        }
+        out.push(intToLine(elm.note,breakPoints,temp));
         counter ++;
+        if (elm.length < 5){ // If it's longer than the shortest note
+            let loops = 1;
+            for (let j = 0; j < 4 - elm.length; j++){
+                loops *= 2;
+            }
+            while (loops > 0){
+                out.push(markToLine(out,counter-1))
+                loops --;
+            }
+            counter++;
+        }
     });
-
     return out;
 }
 const intToLine = (int:number,breakPoints:number[],line:number[])=>{
@@ -132,18 +130,19 @@ const intToLine = (int:number,breakPoints:number[],line:number[])=>{
     }
     return temp;
 }
-const markToLine = (arrIn:number[][],arrInt:number,marker:number)=>{
+const markToLine = (arrIn:number[][],arrInt:number)=>{
     // Takes a line and copies it, then replaces the value with marker
     let out :any[] = [...arrIn[arrInt]];
     let line = 0;
     let note = 0;
+    // Finds where on a collum there's a note, copy the note and row
     for (let i = 0; i < arrIn[0].length; i++){
         if (out[i] >= 0) {
             line = i;
             note = out[i];
         }
     }
-    out[line] = marker +""+ note;
+    out[line] = Marker2 + "" +note;
     return out;
 }
 export {tabTable,lineToMulti};

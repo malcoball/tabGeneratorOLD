@@ -34,7 +34,7 @@ const pushBtn = new Button("New Tab",()=>{console.log("push pls")},'pushButton')
 
 const tabLength     = new Slider(6,0,12,'tabLength',1);
 const rootNote      = new Slider(7,0,24,'rootNote',1);
-const longestNote   = new Slider([0,2],0,3,'longestNote',1);
+const lengthRange   = new Slider([0,2],0,3,'lengthRange',1);
 const bpm           = new Slider(150,0,250, 'bpm',1);
 const distortion    = new Slider (0,0,10,'distortion',1);
 const handPosition  = new Slider(0,0,12,"handPosition",1)
@@ -58,7 +58,7 @@ instruments.forEach( elm =>{ // Typescript won't hates spread for some reason
 
 const OptionsBoxInfo = {
     buttons : [pushBtn],
-    sliders : [tabLength,rootNote,longestNote,bpm,distortion,handPosition],
+    sliders : [tabLength,rootNote,lengthRange,bpm,distortion,handPosition],
     dropDown : [tabType,scale,instrument]
 }
 
