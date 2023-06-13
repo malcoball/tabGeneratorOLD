@@ -2,11 +2,54 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  outline: 2px solid red;
+  background-color: #b3b3b3;
+  background: linear-gradient(180deg, #b3b3b3 0%, rgb(102, 102, 102) 95%, rgba(0, 0, 0, 0) 100%);
+  width: 100%;
+  border-radius: 32px 32px 0 0;
+  box-shadow: 0px 8px 12px 2px rgba(255, 255, 255, 0.3) inset;
+  margin-bottom: 192px;
+  padding-bottom: 64px;
 }
 .tabMain span {
   cursor: pointer;
 }
 .tabMain .titleDiv {
-  display: flex;
+  width: 50%;
+  display: grid;
+  grid-template-columns: 15% 70% 15%;
+  text-align: center;
+  padding-top: 32px;
+  margin-bottom: 32px;
+}
+.tabMain .titleDiv h2 {
+  color: #a55d5d;
+}
+.tabMain .controlsContainer {
+  margin-bottom: 32px;
+  position: relative;
+  width: 512px;
+  display: grid;
+  grid-template-columns: repeat(3, 33%);
+}
+.tabMain .controlsContainer .hide {
+  visibility: hidden;
+}
+.tabMain .controlsContainer span {
+  text-align: center;
+}
+.tabMain .controlsContainer .leftArrow {
+  transform: rotate(180deg);
+}
+.tabMain .mainTabContainer .TabDisplay .tabMid {
+  width: -moz-max-content;
+  width: max-content;
+  overflow-x: visible;
+}
+.tabMain .mainTabContainer .TabDisplay .tabMid .tabRow:first-of-type .tabItem::before {
+  padding-right: 4px;
+  content: "|";
+}
+.tabMain .mainTabContainer .TabDisplay .tabMid .tabRow:nth-of-type(4n+4) .tabItem::after, .tabMain .mainTabContainer .TabDisplay .tabMid .tabRow:last-of-type .tabItem::after {
+  padding-left: 4px;
+  content: "|";
 }/*# sourceMappingURL=TabMain.css.map */

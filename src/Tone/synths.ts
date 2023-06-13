@@ -1,28 +1,9 @@
 import * as Tone from 'tone';
-// import samples from './samples';
+import { Instrument } from './instrumentClass';
 
-export const synths :{synth: any, title : string}[] = [];
-class Synth {
-    synth : any; title : string;
-    constructor(synth:any,title:string){
-        this.synth = synth;
-        this.title = title;
-        synths.push(this);
-    }
-}
+const synths  :any =  []
+synths.push(new Instrument(new Tone.Synth().toDestination(),"synth1"));
+synths.push(new Instrument(new Tone.FMSynth().toDestination(),"synth2"));
+synths.push(new Instrument(new Tone.AMSynth().toDestination(),"synth3"));
 
-new Synth(new Tone.Synth().toDestination(),"synth1");
-new Synth(new Tone.FMSynth().toDestination(),"synth2");
-new Synth(new Tone.AMSynth().toDestination(),"synth3");
-// samples.forEach(elm =>{synths.push(elm)});
-
-export const getSynth = (name:string) :any=>{
-    let out;
-    // CAN BE OPTIMISED
-    synths.forEach(element => {
-        if (element.title === name){
-            out = element;
-        }
-    })
-    return out;
-}
+export default synths;

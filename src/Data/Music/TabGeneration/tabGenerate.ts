@@ -1,43 +1,42 @@
+import { inputToLength } from "../../../Tone/noteConversion";
 import {getScaleByName} from "./scale";
 
 const randomNote = (scale:number[],rootNote:number)=>{
     const int = Math.floor(Math.random()*scale.length);
     return scale[int]+rootNote;
 }
-const tabGenerate = (length:number,rootnote:boolean,scale:string,rootNote:number,longestNote:number)=>{
+const tabGenerate = (length:number,rootnote:boolean,scale:string,rootNote:number,noteLengths:number[])=>{
     // Just generates the array
-    const tab:number[] = [];
+    const tab: {note: number, length: number}[]  = [];
+    const lengths = noteLengths.map(elm =>{return inputToLength(elm)});
+    console.log("lengths : ",lengths);
     const chosenScale = getScaleByName(scale).scale;
-    for (let i = 0; i < length; i++){
+    for (let i = 0; i < length; ){
+        let length = 5; // Could be changed longest note
         if ((i == 0)&& (rootnote == true)){
-            tab.push(rootNote);
+            // Currently only matches the length Range
+            // tab.push(rootNote);
+            tab.push({note : rootNote,length: length})
+            i++;
         } else {
-            let longNoteChose = longestNote;
-            if (i + 7 > length) longNoteChose --;
-            if (i + 3 > length) longNoteChose --;
-            if (i + 1 > length) longNoteChose --;
-            let roll = Math.round(Math.random()*longNoteChose);
-            tab.push(randomNote(chosenScale,rootNote)); 
-            switch (roll){
-                case 0 :
-                    // Single
-                    // Keeping this here just so you're not like "where's the 0 ya silly get!?"
-                    break;
-
-                case 1 : 
-                    // Double
-                    tab.push(-2);   i++;
-                    break;
-                case 2 : 
-                    // Quad
-                    tab.push(-3);   i+=3;
-                    break;
-                case 3 : 
-                    // Eigth
-                    tab.push(-4);   i+=7;
-                    break;
+            // Get the note
+            let note = randomNote(chosenScale,rootNote);
+            // Get the length
+            let length = lengths[Math.round(Math.random()*lengths.length-1)];
+            console.log("length : ",length);
+            switch(length){
+                // The numbers are currently random
+                case 5: i++; break;
+                case 4: i+=2; break;
+                case 3: i+=4; break;
+                case 2: i+=6; break;
+                case 1: i+=8; break;
+                case 0: i+=10; break;
+                default: i++;
             }
-            
+            // i should increase by the length => 16 i++, 8 i+= 3, etc
+
+            tab.push({note : note,length: length});
         }
     }
     return tab;

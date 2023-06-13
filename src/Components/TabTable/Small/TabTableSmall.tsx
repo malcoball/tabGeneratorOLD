@@ -1,91 +1,132 @@
-import { useEffect, useState } from "react";
-import tabGenerate from "../../../Data/Music/TabGeneration/tabGenerate";
+import { useEffect, useState, useContext } from "react";
+import { SmallTabContext } from "../../../Data/Context/SmallTabContext";
 // import TabDisplay from "./TabDisplay";
 import TabDisplay from "../TabDisplay/TabDisplay";
 import './TabTableSmall.css';
 import { noteHighlights } from "../../../functions";
-import { playTab, tabToTone } from "../../../Tone/playSound";
+import { playTab } from "../../../Tone/playSound";
 import instrument from '../../../Data/Music/Instruments';
-const TabTableSmall = (props:any)=>{
-    const inst = instrument(props.settings.tabType);
-    const [name,setName] = useState(props.tab.name);
-    const handleChange = (event:any)=>{
-        setName(event.target.value);
-        nameChange(event.target.value);
-    }
-    const delet = ()=>{
-        props.remove(props.int);
-    }
-    const nameChange = (nameIn:string)=>{
-        console.log("name : ",name);
-        console.log(props.tabCont[props.int])
-        let replace = [...props.tabCont];
-        replace[props.int].name = nameIn;
-    }
-    const refreshTab = ()=>{
-        // Replaces the tab with the same settings that created it.
-        let settings = props.tab.settings;
-        let newTab = tabGenerate(settings.tabLength,true,settings.scale,settings.rootNote,settings.longestNote);
-        let replace = [...props.tabCont];
-        replace[props.int].tab = newTab;
-        props.tabFunc(replace);
-    }
-    const arrowLeft = ()=>{
-        // Reduce the tab by 1, or reduce the size
-        let newTab = props.tabCont[props.int].tab;
-        let target = newTab[newTab.length-1];
-        if (newTab[newTab.length-1] < -2){
-            // Reduce the length of a 1 or 2 note
-            newTab[newTab.length-1]++;
-        } else {
-            // Remove 
-            newTab.pop();
-        }
-        let replace = [...props.tabCont];
-        replace[props.int].tab = newTab;
-        props.tabFunc(replace);
-        
-    }
-    const arrowRight = ()=>{
-        // Increase tab by 1
-        let newTab = props.tabCont[props.int].tab;
-        newTab.push(0);
-        let replace = [...props.tabCont];
-        replace[props.int].tab = newTab;
-        props.tabFunc(replace);
-    }
-    const playBtn = ()=>{
-        const tab = props.tabCont[props.int].tab;
-        const bpm = props.settings.bpm;
-        const octave = inst.octave;
-        const string = inst.stringNames[0];
-        const synth = props.settings.synth;
-        let toneTab = tabToTone(tab);
-        playTab(toneTab,bpm,octave,string,synth,'.tabTableSmall',props.int);
-    }
+import { tabType } from "../../../@types/tabTypes";
+import { NotePromptAdd } from "../../Prompts/NoteClick/NoteClickPrompt";
+
+
+const SwipeInComponent = (props:{id:number,swipeTime:number})=>{
+
+    const smallTabContext = useContext(SmallTabContext);
+    const [id] = useState(props.id);
+    const tab : tabType = smallTabContext?.getTab(id);
+
+
     return(
-        <div className="tabTableSmall">
+        <div className={'tabTableSmallInner swipeIn'} style={{animationDuration:props.swipeTime/1000+"s"}}>
             <div className="topDiv">
-                {/* <h4>{name}  {props.int}</h4> */}
-                <input type="text" onChange={(event)=>{handleChange(event)}} value={props.tab.name}/>
-                <span className="material-symbols-outlined" onClick={delet}>cancel</span>
+                <span className="material-symbols-outlined">cancel</span>
             </div>
             <div className="mainContent">
                 <div className="tableLeft">
                 <div>
-                    <span onClick={()=>{arrowLeft()}} className="material-symbols-outlined">arrow_right_alt</span>
-                    <span onClick={()=>{arrowRight()}} className="material-symbols-outlined">arrow_right_alt</span>
+                    <span className="material-symbols-outlined">arrow_right_alt</span>
+                    <span className="material-symbols-outlined">arrow_right_alt</span>
 
                 </div>
-                <TabDisplay tabCont={props.tabCont} tabFunc={props.tabFunc} int={props.int} tabIn={props.tab} instrument={props.settings.tabType} size="Sml"/>
+                <TabDisplay size="Sml" tabInfo={tab}/>
                 </div>
                 <div className="tableRight">
-                    <span className="material-symbols-outlined" onClick={()=>{refreshTab()}}>cached</span>
-                    <span onClick={playBtn} className="material-symbols-outlined">play_circle</span>
-                    <span className="material-symbols-outlined" onClick={()=>{props.push(props.int)}}>arrow_downward</span>
+                    <span className="material-symbols-outlined">cached</span>
+                    <span className="material-symbols-outlined">play_circle</span>
+                    <span className="material-symbols-outlined" >arrow_downward</span>
                 </div>
             </div>
         </div>
+    )
+}
+type tabTableSmallProps = {
+    tableInt : number,
+    id : number,
+    swipe : {
+        active:boolean, timing:number, removeFunc : ()=>void
+    },
+    settings :{
+        instrumentName : string,
+        bpm : number,
+        synth : string
+    }
+}
+const TabTableSmall = (props:tabTableSmallProps)=>{
+
+    const smallTabContext = useContext(SmallTabContext);
+    // const inst = instrument(props.settings.tabType);
+    let inst = instrument(props.settings.instrumentName);
+    const [currentNote,setCurrentNote] = useState(-1); // Controls which is currently played
+    const [timing,setTiming] = useState(1000); // How long inbetween notes, this should be overridden when at somepoint
+    const [play,setPlay] = useState(false);
+    const [id] = useState(props.id);
+    const [showPrompt,setShowPrompt] = useState(false);
+    const [remove,setRemove] = useState("");
+
+    const tab : tabType = smallTabContext?.getTab(id);
+    const visible = props.swipe.active ? "hidden" : "visible";
+    const delet = ()=>{
+        setRemove("swipeRight");
+        window.setTimeout(()=>{
+            smallTabContext?.updateTab.remove(id);
+            props.swipe.removeFunc();
+        },props.swipe.timing)
+    }
+    const refreshTab = ()=>{
+    }
+    const arrowLeft = ()=>{
+        smallTabContext?.updateTab.note.remove(id);
+    }
+    const arrowRight = ()=>{
+        // Displays a prompt that sorts all of it out.
+        setShowPrompt(!showPrompt);
+    }
+    const arrowDown = ()=>{
+        smallTabContext?.mainTab.addSmall(id);
+    }
+    const playBtn = ()=>{
+        play !== true ? playTabFunc() : console.log("");
+        setPlay(!play);
+    }
+    const playTabFunc = async ()=>{
+        // play should go back to pause if tab is finished
+        const octave = inst.octave;
+        const string = inst.stringNames[0];
+        const synth = props.settings.synth;
+        const bpm = smallTabContext?.updateSettings.data.bpm
+        const tabPlay = await playTab(tab,0,octave,synth,string)
+        console.log(tabPlay);
+    }
+
+    
+    return(
+        <div className={"tabTableSmall tabTableContainer "+remove}>
+            <div className={'tabTableSmallInner'} style={{visibility:visible}}>
+                <div className="topDiv">
+                    <input type="text" value={tab.name} onChange={refreshTab}/>
+                    <span className="material-symbols-outlined" onClick={delet}>cancel</span>
+                </div>
+                <div className="mainContent">
+                    <div className="tableLeft">
+                    <div>
+                        <span onClick={arrowLeft} className="material-symbols-outlined">arrow_right_alt</span>
+                        <span onClick={arrowRight} className="material-symbols-outlined">arrow_right_alt</span>
+
+                    </div>
+                    <TabDisplay size="Sml" tabInfo={tab}/>
+                    </div>
+                    <div className="tableRight">
+                        <span className="material-symbols-outlined" onClick={()=>{refreshTab()}}>cached</span>
+                        <span onClick={playBtn} className="material-symbols-outlined">{play === false ? "play_circle" : "pause_circle"}</span>
+                        <span onClick={arrowDown} className="material-symbols-outlined" >arrow_downward</span>
+                    </div>
+                </div>
+
+            </div>
+        {showPrompt? <NotePromptAdd tab={id} closeFunc={arrowRight} message="new note"/> : <></>}
+        {props.swipe.active? <SwipeInComponent swipeTime={props.swipe.timing} id={props.id}/> : <></>}
+    </div>
     )
 }
 

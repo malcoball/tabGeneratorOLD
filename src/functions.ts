@@ -18,6 +18,22 @@ const noteHighlights = {
         if (remove === true) domTab.forEach(elm =>{elm.classList.remove(className)});
         else domTab.forEach(elm =>{elm.classList.add(className)});
     },
+    allInterval(tableClass:string,noteClass:string,tableInt:number,className:string,bpm:number){
+        const domTab = getDomTargets(tableClass,noteClass,tableInt);
+
+        const bpmToTiming = 500 * (60 / bpm); 
+
+
+        domTab.forEach((elm,int)=>{
+            // Convert bpm to sec/1000
+            
+            const intervalTime = bpmToTiming * (int+1);
+            
+            setTimeout(()=>{
+                elm.classList.add(className);
+            },intervalTime)
+        })
+    },
     upto(tableClass:string,noteClass:string,tableInt:number,className:string,upto:number){
         const domTab = getDomTargets(tableClass,noteClass,tableInt);
 

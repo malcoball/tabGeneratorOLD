@@ -1,0 +1,127 @@
+#noteClickPromptContainer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5019607843);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+#noteClickPromptContainer #noteClickPrompt {
+  position: relative;
+  z-index: 5;
+  width: 320px;
+  height: 380px;
+  background-color: rgb(65, 57, 43);
+  border: 2px solid #1d251d;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+#noteClickPromptContainer #noteClickPrompt .title {
+  color: #ececec;
+  text-transform: uppercase;
+  font-size: 2em;
+  text-align: center;
+}
+#noteClickPromptContainer #noteClickPrompt .numberInputContainer .input {
+  max-width: 92px;
+  background-color: rgba(0, 0, 0, 0);
+  color: #ececec;
+  text-align: center;
+}
+#noteClickPromptContainer #noteClickPrompt .numberInputContainer .input:focus {
+  outline: 0px solid black;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+}
+#noteClickPromptContainer #noteClickPrompt .numberInputContainer span, #noteClickPromptContainer #noteClickPrompt .numberInputContainer .input {
+  font-size: 1.25em;
+}
+#noteClickPromptContainer #noteClickPrompt .radioContainer {
+  padding: 0 12px;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-gap: 8px;
+}
+#noteClickPromptContainer #noteClickPrompt .radioContainer .checkBoxContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 32px;
+}
+#noteClickPromptContainer #noteClickPrompt .radioContainer .checkBoxContainer span {
+  transform: rotate(0deg);
+}
+#noteClickPromptContainer #noteClickPrompt .radioContainer .checkBoxContainer .checkBox {
+  width: 24px;
+  height: 24px;
+  display: block;
+  border: 2px solid #a55d5d;
+  border-radius: 4px;
+  transition: 0.25s;
+}
+#noteClickPromptContainer #noteClickPrompt .radioContainer .checkBoxContainer:hover {
+  font-size: 1.2em;
+}
+#noteClickPromptContainer #noteClickPrompt .radioContainer .checkBoxContainer:hover .checkBox {
+  cursor: pointer;
+  border-width: 4px;
+}
+#noteClickPromptContainer #noteClickPrompt .radioContainer .activeBox {
+  position: relative;
+}
+#noteClickPromptContainer #noteClickPrompt .radioContainer .activeBox .checkBox {
+  position: absolute;
+  background-color: #a55d5d;
+  width: 100%;
+  height: 100%;
+}
+#noteClickPromptContainer #noteClickPrompt .buttonContainer {
+  margin: 36px 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+#noteClickPromptContainer #noteClickPrompt .buttonContainer button {
+  width: 92px;
+  font-size: 1.25em;
+  margin: 3px 0px;
+  background-color: #a55d5d;
+  cursor: pointer;
+  border-color: rgba(0, 0, 0, 0);
+  border-radius: 4px;
+  transition: 0.1s;
+}
+#noteClickPromptContainer #noteClickPrompt .buttonContainer button:hover {
+  color: #ececec;
+  transform: scale(1.05);
+  filter: brightness(1.2);
+  box-shadow: 1px 2px 2px black;
+}
+#noteClickPromptContainer #noteClickPrompt .buttonContainer button:active {
+  transform: scale(1);
+  filter: brightness(0.9);
+  box-shadow: 1px 2px 2px black inset;
+  border-width: 0px;
+}
+#noteClickPromptContainer #noteClickPrompt .buttonContainer button:nth-of-type(3) {
+  background-color: rgb(65, 57, 43);
+  border-color: #a55d5d;
+}
+#noteClickPromptContainer #noteClickPrompt .buttonContainer .hide {
+  visibility: hidden;
+}
+#noteClickPromptContainer #noteClickPrompt .inputTitle {
+  font-size: 1.3em;
+}
+#noteClickPromptContainer span {
+  color: #b3b3b3;
+  font-size: 1.2em;
+  padding: 0 4px;
+}/*# sourceMappingURL=NoteClickPromptStyle.css.map */

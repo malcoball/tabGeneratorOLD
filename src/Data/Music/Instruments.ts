@@ -1,4 +1,10 @@
-const instruments :any[] = [];
+type instrumentType = {
+    name : string,
+    breakPoints : number [],
+    stringNames : string[],
+    octave : number
+}
+const instruments :instrumentType[] = [];
 class instrument{
     name:string;breakPoints : number[]; stringNames : string[]; octave : number;
     constructor(name:string,breakPoints:number[],stringNames:string[],octave:number){
@@ -25,6 +31,11 @@ const getInstrument = (name:string): any=>{
     if (out !== null){ return out; } else {
         console.log(`${name} not recognised`);
     }
+}
+export const getInstrumentNames = ()=>{
+    const out :string[] = [];
+    instruments.forEach( elm => {out.push(elm.name)})
+    return out;
 }
 
 export default getInstrument;
