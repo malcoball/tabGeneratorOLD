@@ -130,6 +130,31 @@
         }
     }
 }
+
+.radioSelector{
+    .infoDiv{
+        display:grid;
+        grid-template-columns: repeat(3,auto);
+        text-align: center;
+        background-color: $bgCol1;
+        .radioInputContainer{
+            span{
+                font-size:1.35em !important;
+                padding:4px 0px;
+                cursor: pointer;
+                color:$col2;
+            }
+            
+        }
+        .active{
+            span{
+                color:$col1;
+            }
+        }
+        
+    }
+}
+
 .inputValue{
     font-size: 1.5em !important; 
     color: $col1;

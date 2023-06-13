@@ -1,29 +1,31 @@
-import { Dropdown, SliderCustom, Button } from "../../Inputs";
+import { Dropdown, SliderCustom, Button, RadioSelector } from "../../Inputs";
 import {useState} from 'react';
 
-const getComponent = (input:string,update:any,settings:any)=>{
+const getComponent = (input:string)=>{
     switch (input){
         // Buttons, can't see there being any others but ahwell
-        case "pushBtn" : return <Button type={0} update={update} settings={settings}/>;
+        case "pushBtn" : return <Button type={0}/>;
 
-        // Sliders
-        case "tabLength" : return <SliderCustom     type={0} update={update} settings={settings}/>;
-        case "rootNote" : return <SliderCustom      type={1} update={update} settings={settings}/>;
-        case "lengthRange" : return <SliderCustom   type={2} update={update} settings={settings}/>;
-        case "bpm" : return <SliderCustom           type={3} update={update} settings={settings}/>;
-        case "distortion" : return <SliderCustom    type={4} update={update} settings={settings}/>;
-        case "handPosition" : return <SliderCustom    type={5} update={update} settings={settings}/>;
+        // // Sliders
+        case "tabLength" : return <SliderCustom     type={0}/>;
+        case "rootNote" : return <SliderCustom      type={1}/>;
+        case "bpm" : return <SliderCustom           type={2}/>;
+        case "distortion" : return <SliderCustom    type={3}/>;
+        case "handPosition" : return <SliderCustom    type={4}/>;
         
-        // Dropdown
-        case "tabType" : return <Dropdown type={0} update={update} settings={settings}/>;
-        case "scale" : return <Dropdown type={1} update={update} settings={settings}/>;
-        case "instrument" : return <Dropdown type={2} update={update} settings={settings}/>
+        // // Dropdown
+        case "tabType" : return <Dropdown type={0}/>;
+        case "scale" : return <Dropdown type={1}/>;
+        case "instrument" : return <Dropdown type={2}/>
+
+        // Radio
+        case "noteLength" : return <RadioSelector type={0}/>
 
         default : console.log(input," not recognised.");
     }
 }
 const OptionsBox = (props:any)=>{
-    const [component,setType] = useState(getComponent(props.type,props.update,props.settings))
+    const [component,setType] = useState(getComponent(props.type))
     return (
         <div>
             <div>

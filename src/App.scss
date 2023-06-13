@@ -1,4 +1,7 @@
 @import './variables';
+html{
+    background:$col4;
+}
 main{
     width:75vw;
     margin:auto;
@@ -8,6 +11,16 @@ main{
             padding-bottom: 32px;
         }
     }
+}
+
+#asyncTestBtn{
+    position:fixed;
+    left:45%;
+    top:50%;
+    width:256px; height: 64px;
+}
+#asyncTestBtn:nth-of-type(2){
+    top:60%;
 }
 
 @media (max-width:$smlBreak){

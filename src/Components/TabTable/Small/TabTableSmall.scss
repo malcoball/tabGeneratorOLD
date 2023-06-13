@@ -4,47 +4,74 @@
 }
 .tabTableSmall{
     transition: 2s;
-    outline: 1px solid black;
-    padding-top: 4px;
     // width: max-content;
-    width:320px;
-    border-radius: 4px;
-    box-shadow: 2px 2px 1px black;
-    background-color: $bgCol5;
     position:relative;
+    .tabTableSmallInner{
+        background-color: $bgCol5;
+        width:320px;
+        border-radius: 4px;
+        box-shadow: 2px 2px 1px black;
+        background-color: $bgCol5;
+        outline: 1px solid black;
+    padding-top: 4px;
 
-    span{
-        cursor: pointer;
-        color: rgb(100, 100, 100);
-    }
-    span:hover{
-        color:black;
-    }
-    .topDiv{
-        width:100%;
-        display:flex; justify-content: flex-end;
-        input{
-            margin-right: 8px;
-            border:0px;
-            text-align: right;
+        span{
+            cursor: pointer;
+            color: rgb(100, 100, 100);
         }
-    }
-    .mainContent{
-        display:flex; flex-direction: row;
-        .tableLeft{
-            div:nth-of-type(1){
-                span{
-                    padding:0 4px;
-                }
-                span:nth-of-type(1){
-                    transform: rotate(180deg);
-                }
+        span:hover{
+            color:black;
+        }
+        .topDiv{
+            width:100%;
+            display:flex; justify-content: flex-end;
+            input{
+                margin-right: 8px;
+                border:0px;
+                text-align: right;
             }
         }
-        .tableRight{
-            display:flex; flex-direction: column; justify-content: space-evenly;
-            padding: 0 6px;
-            // margin-left:auto;
+        .mainContent{
+            display:flex; flex-direction: row;
+            .tableLeft{
+                div:nth-of-type(1){
+                    span{
+                        padding:0 4px;
+                    }
+                    span:nth-of-type(1){
+                        transform: rotate(180deg);
+                    }
+                }
+            }
+            .tableRight{
+                display:flex; flex-direction: column; justify-content: space-evenly;
+                padding: 0 6px;
+                // margin-left:auto;
+            }
         }
     }
+}
+.swipeIn{
+    position:absolute;
+    top:0;
+    animation-name: swipeInAnimation;
+    z-index: 3;
+}
+@keyframes swipeInAnimation {
+    from{left: 100vw;}
+    90%{left: -1vw;}
+    to {left: 0;}
+}
+.swipeRight{
+    animation-duration: 1s;
+    animation-name: swipeOutAnimation;
+}
+@keyframes swipeOutAnimation {
+    to{left: 100vw;}
+    from {left: 0;}
+}
+.tabTableContainer{
+    background-color: #00000000;
+    outline: 0px;
+    box-shadow: 0px 0px 0px #00000000;
 }

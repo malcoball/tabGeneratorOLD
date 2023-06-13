@@ -1,12 +1,15 @@
+import { inputToLength } from "../../../Tone/noteConversion";
 import {getScaleByName} from "./scale";
 
 const randomNote = (scale:number[],rootNote:number)=>{
     const int = Math.floor(Math.random()*scale.length);
     return scale[int]+rootNote;
 }
-const tabGenerate = (length:number,rootnote:boolean,scale:string,rootNote:number,lengthRange:number[])=>{
+const tabGenerate = (length:number,rootnote:boolean,scale:string,rootNote:number,noteLengths:number[])=>{
     // Just generates the array
     const tab: {note: number, length: number}[]  = [];
+    const lengths = noteLengths.map(elm =>{return inputToLength(elm)});
+    console.log("lengths : ",lengths);
     const chosenScale = getScaleByName(scale).scale;
     for (let i = 0; i < length; ){
         let length = 5; // Could be changed longest note
@@ -18,21 +21,20 @@ const tabGenerate = (length:number,rootnote:boolean,scale:string,rootNote:number
         } else {
             // Get the note
             let note = randomNote(chosenScale,rootNote);
-
             // Get the length
-            let longNoteChose = lengthRange[1];
-            // Makes sure the note doesn't extend the tab length
-            // if ((i + 7 > length) && (longNoteChose >    2)) longNoteChose --;
-            // if ((i + 3 > length) && (longNoteChose >    1)) longNoteChose --;
-            // if ((i + 1 > length) && (longNoteChose >    0)) longNoteChose --;
-
-            let roll = Math.round(Math.random()*longNoteChose);
-            let iPush = 1;
-            for (let j = 0; j < roll; j ++){
-                length --;
-                i *= 2;
+            let length = lengths[Math.round(Math.random()*lengths.length-1)];
+            console.log("length : ",length);
+            switch(length){
+                // The numbers are currently random
+                case 5: i++; break;
+                case 4: i+=2; break;
+                case 3: i+=4; break;
+                case 2: i+=6; break;
+                case 1: i+=8; break;
+                case 0: i+=10; break;
+                default: i++;
             }
-            i += iPush;
+            // i should increase by the length => 16 i++, 8 i+= 3, etc
 
             tab.push({note : note,length: length});
         }

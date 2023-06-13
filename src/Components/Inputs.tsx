@@ -1,29 +1,38 @@
 import OptionsBoxInfo from './SidePanel/OptionsBox/OptionsBoxInfo';
-import {useEffect, useState} from 'react';
+import { SmallTabContext } from '../Data/Context/SmallTabContext';
+import React, {ReactEventHandler, useContext, useEffect, useState} from 'react';
 import {Slider} from '@mui/material';
 import Images from '../Data/Images';
 import './Inputs.css';
 
 export const Button = (props:any)=>{
+    const context = useContext(SmallTabContext);
     const {type} = props;
-    const [info,setInfo] = useState(OptionsBoxInfo.buttons[type]);
-    const changeText = (e:any)=>{
-        let settingsNew = {...props.settings,smallTab:[2,5,2,6,5]}
-        props.update(settingsNew);// Replace the root's value
+    const [info] = useState(OptionsBoxInfo.buttons[type]);
+    const clickFunc = ()=>{
+        context?.updateTab.add();
     }
     return(
         <div className='inputWindow buttonInp'>
-            <button className='widthSet heightSet inputValue' onClick={changeText}>{info.text}</button>
+            <button className='widthSet heightSet inputValue' onClick={clickFunc}>{info.text}</button>
         </div>
     )
 }
 
-export const Dropdown = (props:any)=>{
+export const Dropdown = (props:{type:number})=>{
     const {type} = props;
-    const [info,setInfo] = useState(OptionsBoxInfo.dropDown[type]);
-    const [list,setList] = useState(info.list);
+    const [info] = useState(OptionsBoxInfo.dropDown[type]);
+    const [list] = useState(info.list);
     const [showList,setShowList] = useState(false);
-    const [selected,setSelected] = useState(props.settings[info.name]);
+    const [value,setValue] = useState(list[0]);
+    useEffect(()=>{
+        if (value.charAt(0) === "<"){
+            setValue(list[1]);
+        }
+    },[])
+    const context = useContext(SmallTabContext)
+
+
     const [arrowDir,setArrowDir] = useState('downArrow');
 
     const menuToggle = ()=>{
@@ -31,9 +40,9 @@ export const Dropdown = (props:any)=>{
         arrowDir === 'downArrow' ? setArrowDir('rightArrow') : setArrowDir('downArrow');
     }
 
-    const changeText = (e:any)=>{
-        let settingsNew = {...props.settings,[info.name]:e}
-        props.update(settingsNew)// Replace the root's value
+    const changeText = (e:string)=>{
+        setValue(e);
+        context?.updateSettings.updateProperty.byString(info.name,e);
     }
 
     const dropList = list.map((elm:any)=>{return <DropDownItem key={Math.random()} text={elm} func={(e:any)=>{
@@ -43,7 +52,7 @@ export const Dropdown = (props:any)=>{
         <div className='inputWindow dropDown'>
             <h5 className='inputTitle'>{info.name}</h5>
             <div className="dropDownControl widthSet inputBorder heightSet">
-                <p className='inputValue'>{selected}</p>
+                <p className='inputValue'>{value}</p>
                 <span className={arrowDir} onClick={menuToggle}>
                     <img alt="nl" src={Images.ui.nav.down}/>
                 </span>
@@ -68,45 +77,81 @@ const DropDownItem = (props:any)=>{
     )
 }
 
-export const SliderCustom = (props:any)=>{
+export const SliderCustom = (props:{type:number})=>{
     // Working with an array value so can setup range if need be, could be a seperate component but don't think it's needed.
-    const {type,settings} = props;
-    const [info,setInfo] = useState(OptionsBoxInfo.sliders[type]);
-    const [value, setValue] = useState<number[]>([props.settings[info.name]]);
+    const {type} = props;
+    const context = useContext(SmallTabContext);
+    const [info] = useState(OptionsBoxInfo.sliders[type]);
+    
+    const [value,setValue] = useState<number[]>([0]);
+    useEffect(()=>{
+        let valueOut = [];
+        typeof(info.value) === "number" ? valueOut.push(info.value) : valueOut.push(info.value[0]);
+        setValue(valueOut);
+    },[])
+
+    const updateContext = ()=>{
+        const valueOut = value[0];
+        const test = context?.updateSettings.getProperty.byNumber(info.name);
+        if (test !== valueOut){  
+            context?.updateSettings.updateProperty.byNumber(info.name,value[0])
+        }
+    }
+
+
     const handleChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
       };
-    const handleClick = ()=>{
-        let settingsNew = {...props.settings,[info.name]:value[0]}
-        props.update(settingsNew);
-    }
-    const textChange = (inp:any)=>{
+    const textChange = (inp:React.ChangeEvent<HTMLInputElement>)=>{
         let valueNew = [...value];
-        valueNew[0] = inp.target.value;
+        valueNew[0] = parseInt(inp.target.value);
         if (valueNew[0] < info.valueMin) valueNew[0] = info.valueMin;
         if (valueNew[0] > info.valueMax) valueNew[0] = info.valueMax;
         setValue(valueNew);
     }
 
     return (
-        <div className='sliderCustom inputWindow'>
+        <div className='sliderCustom inputWindow' onMouseLeave={updateContext} onBlur={updateContext}>
             <h5 className='inputTitle'>{info.name}</h5>
             <div className='sliderCont widthSet inputBorder'>
                 <div className="valueCont">
-                    {/* <p className='inputValue'>{value}</p> */}
                     <input  className='inputValue' 
                             value={value[0]}
-                            onChange={(e)=>{textChange(e)}}/>
+                            onChange={(e)=>{textChange(e)}}
+                            />
                 </div>
                 <Slider
                     id="sliderId"
                     min={info.valueMin} max={info.valueMax}
                     value={value}
                     onChange={handleChange}
-                    onClick={handleClick}
                 />
             </div>
         </div>
     )
 }
 
+const RadioInput = (props:{name : string|number})=>{
+    const [active,setActive] = useState(false);
+    const classActive = active === true ? "active" : "";
+    return (
+        <div className={"radioInputContainer "+classActive} >
+            <span className='inputValue' onClick={()=>{setActive(!active)}}>{props.name}</span>
+        </div>
+    )
+}
+
+export const RadioSelector = (props:{type:number}) =>{
+    const [info] = useState(OptionsBoxInfo.radio[props.type]);
+    const options = info.values.map((elm) =>{return <RadioInput name={elm}/>})
+    return (
+        <div className="inputWindow radioSelector">
+            <div className="titleDiv">
+                <h5 className="inputTitle">{info.name}</h5>
+            </div>
+            <div className="infoDiv widthSet inputBorder">
+                {options}
+            </div>
+        </div>
+    )
+}

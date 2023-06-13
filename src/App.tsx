@@ -1,73 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Header from './Components/Header/Header';
 import SidePanel from './Components/SidePanel/SidePanel';
-import TabPreview from './Components/TabPreview/TabPreview';
+import TabPreview from './Components/Tabs/TabPreview/TabPreview';
+import { tabSettings } from './@types/tabTypes';
 import TabMain from './Components/TabTable/Main/TabMain';
 import tabGenerate from './Data/Music/TabGeneration/tabGenerate';
 import PlayAudioTest from './Components/Tests/PlayAudioTest';
+import { tabType,} from './@types/tabTypes';
+import SmallTabProvider from './Data/Context/SmallTabContext';
+import {AsyncTest} from './Components/Other/AsyncTest';
 
 function App() {
+  const [panelLeft] = useState(['pushBtn','tabLength','scale','tabType','rootNote','noteLength'])
+  const [panelRight] = useState(['bpm','distortion','instrument'])
 
-  const [settings,setSettings] = useState({
-    tabLength : 6,
-    tabType : 'bass',
-    scale : 'blues',
-    smallTab:null, // Is used to detect any change, done this way to prevent more prop drilling, also it allows more control over array creation
-    rootNote:0,
-    bpm:120,
-    distortion:0,
-    lengthRange:[0,3],
-    handPosition: 0,
-    synth : "synth1"
-  })
-  useEffect(()=>{
-  },[settings])
-
-  const [smallTabs,setSmallTabs] = useState([ // Holds the small tabs
-  {tab : [{note : 1, length : 5},{note: 7, length: 4}],activeNote : -1, selected:2, name: "unset", settings:settings},
-  ])
-  const removeSmallTab = (int:number)=>{
-    let out : any[] = [];
-    for (let i = 0; i < smallTabs.length; i++){
-      if (i !== int) out.push(smallTabs[i]);
-    }
-    setSmallTabs([...out]);
+  const closePanel = ()=>{
+    
   }
-  const smallTabToMain = (int:number)=>{
-    // Take the calling tab's array and put it in the large tab
-    const smallTab = smallTabs[int].tab;
-    const out = mainTab.concat(smallTab);
-    setMainTab(out);
-  }
-  useEffect(()=>{
-    // When 'new tab' button is used.
-    if (settings.smallTab !== null){
-      let newTab = tabGenerate(settings.tabLength,true,settings.scale,settings.rootNote,settings.lengthRange);
-      let newTabs = [...smallTabs];   newTabs.push({tab : newTab, selected:0, activeNote:-1, name : 'listen', settings:settings});
-      setSmallTabs(newTabs);
-    }
-  },[settings.smallTab])
-
-  const [mainTab,setMainTab] = useState([
-    {note : 0, length : 5},{note: 2, length: 4}
-  ])
-
   return (
     <>
+      <SmallTabProvider>
       <Header title="Guitar Tab Generator"/>
-      <SidePanel settings={settings} update={setSettings} options={['pushBtn','tabLength','scale','tabType','rootNote','handPosition','lengthRange']} side='left'/>
-      <SidePanel settings={settings} update={setSettings} options={['bpm','distortion','instrument']} side='right'/>
+        <SidePanel options={panelLeft} side='left'/>
+        <SidePanel options={panelRight} side='right'/>
       <main>
         <article>
-          <TabPreview push={smallTabToMain} smallTabs={smallTabs} tabFunc={setSmallTabs} remove={removeSmallTab}  title="Tab Preview" settings={settings}/>
+            <TabPreview title="Tab Preview" />
         </article>
-        <section>
-          {/* <PlayAudioTest/> */}
-          {/* <TabMain settings={settings} title="Main Display" tabIn={mainTab} instrument={settings.tabType}/> */}
+        <section> 
+          {/* <TabMain title="Main Display"/> */}
         </section>
-      </main>
+      </main> 
+      </SmallTabProvider>
     </>
   );
 }

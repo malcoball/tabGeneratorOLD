@@ -4,44 +4,84 @@
 
 .tabTableSmall {
   transition: 2s;
-  outline: 1px solid black;
-  padding-top: 4px;
+  position: relative;
+}
+.tabTableSmall .tabTableSmallInner {
+  background-color: #fafafa;
   width: 320px;
   border-radius: 4px;
   box-shadow: 2px 2px 1px black;
   background-color: #fafafa;
-  position: relative;
+  outline: 1px solid black;
+  padding-top: 4px;
 }
-.tabTableSmall span {
+.tabTableSmall .tabTableSmallInner span {
   cursor: pointer;
   color: rgb(100, 100, 100);
 }
-.tabTableSmall span:hover {
+.tabTableSmall .tabTableSmallInner span:hover {
   color: black;
 }
-.tabTableSmall .topDiv {
+.tabTableSmall .tabTableSmallInner .topDiv {
   width: 100%;
   display: flex;
   justify-content: flex-end;
 }
-.tabTableSmall .topDiv input {
+.tabTableSmall .tabTableSmallInner .topDiv input {
   margin-right: 8px;
   border: 0px;
   text-align: right;
 }
-.tabTableSmall .mainContent {
+.tabTableSmall .tabTableSmallInner .mainContent {
   display: flex;
   flex-direction: row;
 }
-.tabTableSmall .mainContent .tableLeft div:nth-of-type(1) span {
+.tabTableSmall .tabTableSmallInner .mainContent .tableLeft div:nth-of-type(1) span {
   padding: 0 4px;
 }
-.tabTableSmall .mainContent .tableLeft div:nth-of-type(1) span:nth-of-type(1) {
+.tabTableSmall .tabTableSmallInner .mainContent .tableLeft div:nth-of-type(1) span:nth-of-type(1) {
   transform: rotate(180deg);
 }
-.tabTableSmall .mainContent .tableRight {
+.tabTableSmall .tabTableSmallInner .mainContent .tableRight {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   padding: 0 6px;
+}
+
+.swipeIn {
+  position: absolute;
+  top: 0;
+  animation-name: swipeInAnimation;
+  z-index: 3;
+}
+
+@keyframes swipeInAnimation {
+  from {
+    left: 100vw;
+  }
+  90% {
+    left: -1vw;
+  }
+  to {
+    left: 0;
+  }
+}
+.swipeRight {
+  animation-duration: 1s;
+  animation-name: swipeOutAnimation;
+}
+
+@keyframes swipeOutAnimation {
+  to {
+    left: 100vw;
+  }
+  from {
+    left: 0;
+  }
+}
+.tabTableContainer {
+  background-color: rgba(0, 0, 0, 0);
+  outline: 0px;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
 }/*# sourceMappingURL=TabTableSmall.css.map */
